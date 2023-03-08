@@ -126,6 +126,39 @@ table("cruise_schedules") {
     column("end_place"): String
 }
 
+' 숙박 업소 테이블
+table("hotels") {
+    primary_key("_id"): UUID
+    column("name"): String
+    column("phone"): String
+    column("address"): String
+    column("addressLine"): String
+    column("contact"): String
+    column("contact_phone"): String
+}
+
+' 숙박 업소 방 테이블
+table("hotel_rooms") {
+    primary_key("_id"): UUID
+    foreign_key("hotel_id"): UUID
+    column("name"): String
+    column("price"): String
+    ' 숙박 인원
+    column("capacity"): String
+    column("description"): String
+    column("image"): String
+}
+
+' 방 예약 테이블
+table("hotel_reservations") {
+    primary_key("_id"): UUID
+    foreign_key("hotel_room_id"): UUID
+    column("start_date"): String
+    column("end_date"): String
+    ' 예약 인원
+    column("number_of_people"): String
+    column("memo"): String
+}
 
 
 ' ----------------------------------------
@@ -183,6 +216,8 @@ members -- payments : one to one
 ' 참가자 - 투어 (N:1)
 members }-- tour : many to one
 
+members }-- groups : many to one
+
 
 ' ----------- TOUR -----------------------
 ' 투어 - 투어 세션 (1:N)
@@ -192,10 +227,17 @@ tour_sessions --o{ tours : one to many
 ' 그룹 - 버스 회사 (1:N)
 groups --o{ bus_companies : one to many
 
-
-
 cruise_companies --o{ cruise_ships : one to many
 cruise_ships --o{ cruise_schedules : one to many
+
+restaurants --o{ restaurant_menus : one to many
+
+hotels --o{ hotel_rooms : one to many
+
+hotel_rooms --o{ hotel_reservations : one to many
+
+
+
 
 
 
