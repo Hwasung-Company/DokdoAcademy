@@ -1,0 +1,14 @@
+//
+// packages/libs/common/tsconfig.json
+//
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "src",
+    "baseUrl": "./",
+    "composite": true
+  },
+
+  "include": ["src/**/*"]
+}

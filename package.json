@@ -1,0 +1,22 @@
+{
+  "name": "dokdo-academy-monorepo",
+  "packageManager": "yarn@3.4.1",
+  "private": true,
+  "scripts": {
+    "common": "yarn workspace @dokdo-academy/common",
+    "component": "yarn workspace @dokdo-academy/component",
+    "nextapp": "yarn workspace next-app",
+    "nestapp": "yarn workspace nest-app",
+    "nativeapp": "yarn workspace native-app"
+  },
+  "workspaces": [
+    "packages/*/*",
+    "packages/libs/frontend/*",
+    "packages/libs/backend/*"
+  ],
+  "devDependencies": {
+    "@types/prettier": "^2",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
+  }
+}

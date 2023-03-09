@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.spec.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@dokdo-academy/common": ["packages/libs/common/src"]
+    }
+  },
+  "files": [],
+  "references": [{ "path": "./packages/libs/common" }]
+}
