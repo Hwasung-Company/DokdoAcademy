@@ -16,6 +16,8 @@
     "incremental": true,
     "paths": {
       "next-app/*": ["./*"],
+      "@components/*": ["../../libs/components/dist/*"],
+      "@common/*": ["../../libs/common/dist/*"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
