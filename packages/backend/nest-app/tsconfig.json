@@ -18,7 +18,9 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@libs/*": ["../../libs/*"]
+      "src/*": ["src/*"],
+      "@libs/*": ["../../libs/*"],
+      "@common/*": ["../../libs/common/dist/*"],
     }
   }
 }

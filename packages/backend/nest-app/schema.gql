@@ -1,0 +1,47 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Users {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  username: String!
+  password: String!
+  name: String!
+  email: String!
+  phone: String!
+  avatar: String!
+  role: UserRole!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+enum UserRole {
+  ADMIN
+  GUIDE
+  COLLABORATOR
+}
+
+type CreateAccountOutput {
+  ok: Boolean!
+  error: String
+  message: String
+}
+
+type Query {
+  users: [Users!]!
+}
+
+type Mutation {
+  createAccount(input: CreateAccountInput!): CreateAccountOutput!
+}
+
+input CreateAccountInput {
+  username: String!
+  password: String!
+  role: UserRole!
+}
