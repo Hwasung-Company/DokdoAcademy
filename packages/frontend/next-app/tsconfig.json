@@ -16,10 +16,9 @@
     "incremental": true,
     "paths": {
       "next-app/*": ["./*"],
-      "@dokdo-academy/common": ["../../libs/common/src"],
-      "@dokdo-academy/component": ["../../libs/frontend/components/src"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "extends": ["../../../tsconfig.base.json"]
 }

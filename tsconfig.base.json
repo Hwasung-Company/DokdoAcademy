@@ -1,9 +1,9 @@
 {
   "extends": "./tsconfig.spec.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@dokdo-academy/common": ["packages/libs/common/src"]
+      "@common": ["packages/libs/common/src"],
+      "@components": ["packages/libs/frontend/components/src"],
     }
   },
   "files": [],

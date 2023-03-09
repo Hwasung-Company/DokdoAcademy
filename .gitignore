@@ -27,3 +27,5 @@ yran/*
 .yarn
 
 ./.yarn
+
+dist

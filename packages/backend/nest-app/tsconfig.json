@@ -18,7 +18,7 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@dokdo-academy/common": ["../../libs/common/src"]
+      "@libs/*": ["../../libs/*"]
     }
   }
 }
