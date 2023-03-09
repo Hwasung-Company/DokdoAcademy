@@ -25,3 +25,5 @@ yarn
 yran/*
 
 .yarn
+
+./.yarn
