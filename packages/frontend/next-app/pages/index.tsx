@@ -1,6 +1,7 @@
 import {gql, useQuery} from '@apollo/client'
 import {Box, Grid} from '@mui/material'
 import {createGridTemplate} from '@dokdo-academy/component/dist/template/template'
+import {Component} from 'react'
 
 
 const GET_USERS = gql`
@@ -11,6 +12,11 @@ const GET_USERS = gql`
     }
 `
 
+class Test extends Component {
+    render(){
+        return <></>
+    }
+}
 
 export default function Home(){
 
