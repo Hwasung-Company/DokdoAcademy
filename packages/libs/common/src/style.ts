@@ -1,5 +1,6 @@
 export const lightThemeMui = {
     palette:{
+        mode: 'light',
         primary: {
             main: '#2F4EA0',
             light: '#4B5FEB',
@@ -43,13 +44,14 @@ export const lightThemeMui = {
             hint: '#000',
         },
         background: {
-            default: '#fff',
-            paper: '#fff',
+            default: '#ffffff',
+            paper: '#ffffff',
         },
     }
 }
 export const darkThemeMui = {
     palette:{
+        mode: 'dark',
         primary: {
             main: '#2F4EA0',
             light: '#4B5FEB',
@@ -66,35 +68,35 @@ export const darkThemeMui = {
             main: '#F44336',
             light: '#FF7961',
             dark: '#BA000D',
-            contrastText: '#fff',
+            contrastText: '#ffffff',
         },
         warning: {
             main: '#FF9800',
             light: '#FFC947',
             dark: '#C66900',
-            contrastText: '#fff',
+            contrastText: '#ffffff',
         },
         info: {
             main: '#2196F3',
             light: '#6EC6FF',
             dark: '#0069C0',
-            contrastText: '#fff',
+            contrastText: '#ffffff',
         },
         success: {
             main: '#4CAF50',
             light: '#81C784',
             dark: '#087F23',
-            contrastText: '#fff',
+            contrastText: '#ffffff',
         },
         text: {
-            primary: '#fff',
-            secondary: '#fff',
-            disabled: '#fff',
-            hint: '#fff',
+            primary: '#ffffff',
+            secondary: '#ffffff',
+            disabled: '#ffffff',
+            hint: '#ffffff',
         },
         background: {
-            default: '#000',
-            paper: '#000',
+            default: '#121212',
+            paper: '#121212',
         },
-    }
+    },
 }

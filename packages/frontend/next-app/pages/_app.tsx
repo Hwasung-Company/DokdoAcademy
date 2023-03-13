@@ -1,46 +1,58 @@
-import {AppProps} from 'next/app'
-import {createTheme, CssBaseline, GlobalStyles, SpeedDial} from '@mui/material'
-import {ApolloProvider} from '@apollo/client'
-import client from '../apollo-client'
-import Template from '@dokdo-academy/component/dist/template/template'
-import {ThemeProvider} from '@mui/styles'
-import {createContext, useMemo, useState} from 'react'
-import {Brightness4, Brightness7} from '@mui/icons-material'
-import {darkThemeMui, lightThemeMui} from '@common/style'
+import {AppProps} from 'next/app';
+import {Box, Container, Paper, SpeedDial, Theme} from '@mui/material';
+import {createTheme, ThemeProvider} from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import {ApolloProvider} from '@apollo/client';
+import client from '../apollo-client';
+import Template from '@dokdo-academy/component/dist/template/template';
+import {createContext, useEffect, useMemo, useState} from 'react';
+import {Brightness4, Brightness7} from '@mui/icons-material';
+import {darkThemeMui, lightThemeMui} from '@common/style';
+import {CacheProvider, EmotionCache} from '@emotion/react';
+import createEmotionCache from 'next-app/src/utils/createEmotionCache';
 
-export const ColorThemeContext = createContext({
-    toggleColorMode: () => {}
-})
+import '../styles/globals.css';
+import ContextProvider from 'next-app/src/context/ContextProvider'
 
-function MyApp({ Component, pageProps }: AppProps) {
+const clientSideEmotionCache = createEmotionCache();
+
+export interface MyAppProps extends AppProps {
+    emotionCache?: EmotionCache;
+}
+
+function MyApp(props: MyAppProps) {
+    const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
     const [colorMode, setColorMode] = useState<'light'|'dark'>('light');
-    const mode = useMemo(()=>({
-        toggleColorMode: () => {
-            setColorMode((prev) => prev === 'light' ? 'dark' : 'light')
-        }
-        }),[])
+    const lightTheme = createTheme({
+        ...(lightThemeMui as any)
+    });
 
-    const theme = useMemo(() => createTheme({
-        palette: {
-            mode: colorMode,
-            ...(colorMode === 'light' ? lightThemeMui.palette : darkThemeMui.palette)
-        }}), [colorMode]);
+    const darkTheme = createTheme({
+        ...(darkThemeMui as any)
+    });
 
     return (
-        <>
-            <GlobalStyles styles={{
-                '*': {
-                    fontFamily: 'Noto Sans KR, Noto Sans, sans-serif',
-                    transition: 'color 0.3s, background-color 0.3s'
-                }
-            }}/>
+        <CacheProvider value={clientSideEmotionCache}>
             <ApolloProvider client={client}>
-                <ColorThemeContext.Provider value={mode}>
-                    <ThemeProvider theme={theme}>
+                <ContextProvider>
+                    <ThemeProvider theme={
+                        colorMode === 'light' ? lightTheme : darkTheme
+                    }>
                         <CssBaseline />
-                        <Template>
-                            <Component {...pageProps} />
-                        </Template>
+                        <Box
+                            component={Paper}
+                            sx={{
+                                backgroundColor: 'background.paper',
+                                minHeight: '100vh',
+                            }}>
+                            <Container
+                                sx={{
+                                    minHeight: '100vh',
+                                }}
+                            >
+                                <Component {...pageProps} />
+                            </Container>
+                        </Box>
                         <SpeedDial ariaLabel={'color mode'} sx={{
                             position: 'fixed',
                             bottom: 16,
@@ -49,12 +61,16 @@ function MyApp({ Component, pageProps }: AppProps) {
                                 backgroundColor: 'background.paper',
                             }
                         }}
-                       icon={colorMode === 'light' ? <Brightness7 /> : <Brightness4 />}
-                       onClick={mode.toggleColorMode} />
+                                   icon={colorMode === 'light' ? <Brightness7 /> : <Brightness4 />}
+                                   onClick={
+                                       ()=>{
+                                           setColorMode(colorMode === 'light' ? 'dark' : 'light')
+                                       }
+                                   } />
                     </ThemeProvider>
-                </ColorThemeContext.Provider>
+                </ContextProvider>
             </ApolloProvider>
-        </>
+        </CacheProvider>
     );
 }
 

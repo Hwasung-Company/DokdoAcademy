@@ -14,6 +14,10 @@ export class UsersService {
     private readonly users: Repository<Users>,
   ) {}
 
+  findOne(username: string) {
+    return this.users.findOne({ where: { username } });
+  }
+
   findAll() {
     return this.users.find();
   }
@@ -39,6 +43,33 @@ export class UsersService {
       return {
         ok: false,
         error: '계정 생성에 실패했습니다.',
+      };
+    }
+  }
+
+  async login({ username, password }: { username: string; password: string }) {
+    try {
+      const user = await this.users.findOne({ where: { username } });
+      if (!user) {
+        return {
+          ok: false,
+          error: '존재하지 않는 계정입니다.',
+        };
+      }
+      const passwordCorrect = await user.checkPassword(password);
+      if (!passwordCorrect) {
+        return {
+          ok: false,
+          error: '비밀번호가 일치하지 않습니다.',
+        };
+      }
+      return {
+        ok: true,
+      };
+    } catch (e) {
+      return {
+        ok: false,
+        error: '로그인에 실패했습니다.',
       };
     }
   }

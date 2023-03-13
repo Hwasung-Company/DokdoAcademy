@@ -1,0 +1,8 @@
+a {
+    text-decoration: none;
+}
+
+* {
+    font-family: Noto Sans,Noto Sans KR, sans-serif!important;
+    transition: color 100ms, background-color 0.3s;
+}

@@ -5,7 +5,8 @@
     "rootDir": "src",
     "baseUrl": "./",
     "composite": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "declaration": true,
   },
 
   "include": ["src/**/*"]

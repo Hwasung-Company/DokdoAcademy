@@ -1,8 +1,10 @@
-import {Container} from '@mui/material'
+import {Container, Paper} from '@mui/material'
 
 export default function Template({children}: {children: React.ReactNode}){
-    return <Container sx={{
+    return <Container
+        sx={{
         minHeight: '100vh',
+        backgroundColor: 'background.paper',
     }}>
         {children}
     </Container>
