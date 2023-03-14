@@ -59,7 +59,7 @@ export const darkThemeMui = {
             contrastText: '#fff',
         },
         secondary: {
-            main: '#F5F5F5',
+            main: '#ECF2FF',
             light: '#FFFFFF',
             dark: '#C2C2C2',
             contrastText: '#000',
@@ -77,9 +77,9 @@ export const darkThemeMui = {
             contrastText: '#ffffff',
         },
         info: {
-            main: '#2196F3',
-            light: '#6EC6FF',
-            dark: '#0069C0',
+            main: '#AA77FF',
+            light: '#C9EEFF',
+            dark: '#62CDFF',
             contrastText: '#ffffff',
         },
         success: {

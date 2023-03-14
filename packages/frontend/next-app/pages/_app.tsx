@@ -48,25 +48,28 @@ function MyApp(props: MyAppProps) {
                             <Container
                                 sx={{
                                     minHeight: '100vh',
+                                    minWidth: 1200,
                                 }}
                             >
                                 <Component {...pageProps} />
                             </Container>
                         </Box>
-                        <SpeedDial ariaLabel={'color mode'} sx={{
+                        <SpeedDial
+                            ariaLabel={'color mode'}
+                            sx={{
                             position: 'fixed',
                             bottom: 16,
                             right: 16,
-                            '& .MuiSpeedDialIcon-root': {
-                                backgroundColor: 'background.paper',
-                            }
-                        }}
-                                   icon={colorMode === 'light' ? <Brightness7 /> : <Brightness4 />}
-                                   onClick={
-                                       ()=>{
-                                           setColorMode(colorMode === 'light' ? 'dark' : 'light')
-                                       }
-                                   } />
+                                '& .MuiSpeedDialIcon-root': {
+                                    backgroundColor: 'background.paper',
+                                }
+                                }}
+                            icon={colorMode === 'light' ? <Brightness7 /> : <Brightness4 />}
+                            onClick={
+                                ()=>{
+                                    setColorMode(colorMode === 'light' ? 'dark' : 'light')
+                                }}
+                        />
                     </ThemeProvider>
                 </ContextProvider>
             </ApolloProvider>

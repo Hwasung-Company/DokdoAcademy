@@ -93,19 +93,22 @@ function Home(){
                         width: '100%',
                         alignItems: 'center',
                     }}>
-                        <Box sx={(theme)=>{
-                            return {
-                                backgroundImage: 'url(/assets/images/Logo.svg)',
-                                filter: theme.palette.mode === 'dark' ? 'invert(0)' : 'invert(1)',
-                                width: '6rem',
-                                height: '6rem',
-                            }
-                        }} />
+                        <Box
+                            id={'logo'}
+                            sx={(theme)=>{
+                                return {
+                                    backgroundImage: "url(/assets/images/Logo.svg)",
+                                    filter: theme.palette.mode==='dark'? '': 'invert(1)',
+                                    width: '6rem',
+                                    height: '6rem',
+                                }
+                            }} />
                         <Box sx={{
                             display: 'flex',
                             flexDirection: 'column',
                             marginLeft: '1rem'
                         }}>
+
                             <Typography variant={'h4'} sx={{fontWeight: 'bold'}}>
                                 독도 아카데미
                             </Typography>
