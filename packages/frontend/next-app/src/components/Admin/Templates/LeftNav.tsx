@@ -66,7 +66,7 @@ export default function LeftNav(){
                         <ListItemIcon>
                             <DirectionsBus />
                         </ListItemIcon>
-                        <ListItemText primary={'버스 회사 관리'} />
+                        <ListItemText primary={'버스 업체 관리'} />
                         {selectedTab.includes('bus') ? <ExpandLess /> : <ExpandMore />}
                     </ListItemButton>
                     <Collapse in={selectedTab.includes('bus')} timeout="auto" unmountOnExit>

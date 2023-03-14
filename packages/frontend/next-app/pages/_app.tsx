@@ -34,44 +34,44 @@ function MyApp(props: MyAppProps) {
     return (
         <CacheProvider value={clientSideEmotionCache}>
             <ApolloProvider client={client}>
-                <ContextProvider>
                     <ThemeProvider theme={
                         colorMode === 'light' ? lightTheme : darkTheme
                     }>
-                        <CssBaseline />
-                        <Box
-                            component={Paper}
-                            sx={{
-                                backgroundColor: 'background.paper',
-                                minHeight: '100vh',
-                            }}>
-                            <Container
+                    <ContextProvider>
+                            <CssBaseline />
+                            <Box
+                                component={Paper}
                                 sx={{
-                                    minHeight: '100vh',
-                                    minWidth: 1200,
-                                }}
-                            >
-                                <Component {...pageProps} />
-                            </Container>
-                        </Box>
-                        <SpeedDial
-                            ariaLabel={'color mode'}
-                            sx={{
-                            position: 'fixed',
-                            bottom: 16,
-                            right: 16,
-                                '& .MuiSpeedDialIcon-root': {
                                     backgroundColor: 'background.paper',
-                                }
-                                }}
-                            icon={colorMode === 'light' ? <Brightness7 /> : <Brightness4 />}
-                            onClick={
-                                ()=>{
-                                    setColorMode(colorMode === 'light' ? 'dark' : 'light')
-                                }}
-                        />
+                                    minHeight: '100vh',
+                                }}>
+                                <Container
+                                    sx={{
+                                        minHeight: '100vh',
+                                        minWidth: 1200,
+                                    }}
+                                >
+                                    <Component {...pageProps} />
+                                </Container>
+                            </Box>
+                            <SpeedDial
+                                ariaLabel={'color mode'}
+                                sx={{
+                                position: 'fixed',
+                                bottom: 16,
+                                right: 16,
+                                    '& .MuiSpeedDialIcon-root': {
+                                        backgroundColor: 'background.paper',
+                                    }
+                                    }}
+                                icon={colorMode === 'light' ? <Brightness7 /> : <Brightness4 />}
+                                onClick={
+                                    ()=>{
+                                        setColorMode(colorMode === 'light' ? 'dark' : 'light')
+                                    }}
+                            />
+                    </ContextProvider>
                     </ThemeProvider>
-                </ContextProvider>
             </ApolloProvider>
         </CacheProvider>
     );

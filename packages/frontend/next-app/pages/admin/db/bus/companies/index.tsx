@@ -4,27 +4,20 @@ import { Search} from '@mui/icons-material'
 import BusListItem from 'next-app/src/components/List/BusListItem'
 import {useModalContext} from 'next-app/src/context/ModalContext'
 import {useEffect} from 'react'
+import isContact from '@common/validators/isContact'
+import CreateBusCompany from 'next-app/src/components/Admin/Modals/CreateBusCompany'
 
 function BusCompanies(){
     const {setModal, open} = useModalContext()
 
     useEffect(()=>{
-        setModal(<Paper>
-            <Box sx={{ padding: '1rem' }}>
-                <Typography variant={'h6'} sx={{ fontWeight: 700 }}>업체 등록</Typography>
-                <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '1rem' }}>
-                    <Typography variant={'caption'} sx={{ fontWeight: 500 }}>업체명</Typography>
-                    <TextField variant={'outlined'} size={'small'} sx={{ margin: '0 1rem' }} />
-                </Box>
-            </Box>
-
-        </Paper>)
+        setModal(<CreateBusCompany/>)
     },[])
 
     return (
         <DbTemplate
-            title={'버스 회사 관리'}
-            breadcrumbs={[ {href: '/admin/db', label: 'DB'}, {href: '/admin/db/bus', label: '버스 회사 관리'}, {href: '/admin/db/bus/companies', label: '업체 목록'} ]}
+            title={'버스 업체 관리'}
+            breadcrumbs={[ {href: '/admin/db', label: 'DB'}, {href: '/admin/db/bus', label: '버스 업체 관리'}, {href: '/admin/db/bus/companies', label: '업체 목록'} ]}
         >
             <>
                 <Box sx={{

@@ -12,6 +12,7 @@ const style = {
 type ModalContextType = {
     isOpen: boolean,
     open: () => void,
+    close: () => void,
     Modal: ReactElement,
     setModal: (Component: ReactElement) => void,
 }
@@ -19,6 +20,7 @@ type ModalContextType = {
 export const ModalContext = createContext<ModalContextType>({
     isOpen: false,
     open: () => {},
+    close: () => {},
     Modal: <></>,
     setModal: (Component: ReactElement) => {},
 })
@@ -27,7 +29,8 @@ export function ModalContextProvider({children}: {children: ReactNode}){
     const [isOpen, setIsOpen] = useState(false)
     const [Modal, setModal] = useState<ReactElement>(<></>)
     const value = useMemo(()=>({
-        isOpen, open: () => {setIsOpen(true)}, Modal, setModal
+        isOpen, open: () => {setIsOpen(true)}, Modal, setModal,
+        close: () => {setIsOpen(false)}
     }),[
         open, setIsOpen, Modal, setModal
     ])
