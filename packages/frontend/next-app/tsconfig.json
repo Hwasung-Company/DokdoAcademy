@@ -18,7 +18,8 @@
       "next-app/*": ["./*"],
       "@components/*": ["../../libs/components/dist/*"],
       "@common/*": ["../../libs/common/dist/*"],
-    }
+    },
+    "experimentalDecorators": true
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"],

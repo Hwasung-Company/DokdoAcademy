@@ -22,6 +22,7 @@ export function SnackContextProvider({children}: {children: ReactNode}){
     const [variant, setVariant] = useState<'success' | 'error' | 'warning' | 'info'>('success')
     const [open, setOpen] = useState(false)
     const close = () => {
+        setMessage('');
         setOpen(false)
     }
 
@@ -38,12 +39,12 @@ export function SnackContextProvider({children}: {children: ReactNode}){
     return <SnackContext.Provider value={value}>
         {children}
         <Snackbar
-                    open={open} autoHideDuration={1500} onClose={close}
+                    open={value.open} autoHideDuration={1500} onClose={value.close}
                     anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     TransitionComponent={(props) => <Slide {...props} direction="up" />}
         >
-            <Alert onClose={close} severity={variant} sx={{width: '100%'}}>
-                {message}
+            <Alert onClose={value.close} severity={value.variant} sx={{width: '100%'}}>
+                {value.message}
             </Alert>
         </Snackbar>
     </SnackContext.Provider>

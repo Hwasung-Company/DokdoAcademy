@@ -26,6 +26,21 @@ export class BusService {
     input: CreateBusCompanyInput,
   ): Promise<CreateBusCompanyOutput> {
     try {
+      const exists = await this.busCompanies.findOne({
+        where: { name: input.name },
+      });
+      if (exists) {
+        return {
+          ok: false,
+          error: '이미 사용 중인 업체 이름입니다.',
+        };
+      }
+      const newBusCompany = await this.busCompanies.create(input);
+      const result = await this.busCompanies.save(newBusCompany);
+      return {
+        ok: true,
+        message: '업체 등록이 완료되었습니다.',
+      };
     } catch (e) {
       return {
         ok: false,

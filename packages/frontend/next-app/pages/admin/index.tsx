@@ -23,6 +23,7 @@ function Home(){
     const router = useRouter()
     useEffect(()=>{
         if(data?.login?.ok){
+            localStorage.setItem('hs-academy-auth-token', data.login.access_token)
             openSnack('로그인 성공', 'success')
             router.push('/admin/Dashboard')
         }

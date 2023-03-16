@@ -13,7 +13,7 @@ export class CreateBusCompanyInput {
   phone: string;
 
   @Field((type) => String)
-  email: string;
+  email?: string;
 
   @Field((type) => String)
   contact: string;

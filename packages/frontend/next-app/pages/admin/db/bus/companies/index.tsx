@@ -3,16 +3,26 @@ import {alpha, Box, Button, Checkbox, InputAdornment, Paper, TextField, Typograp
 import { Search} from '@mui/icons-material'
 import BusListItem from 'next-app/src/components/List/BusListItem'
 import {useModalContext} from 'next-app/src/context/ModalContext'
-import {useEffect} from 'react'
+import {useEffect, useMemo} from 'react'
 import isContact from '@common/validators/isContact'
 import CreateBusCompany from 'next-app/src/components/Admin/Modals/CreateBusCompany'
+import useGetBusCompanies from 'next-app/src/api/companies/useGetBusCompanies'
 
 function BusCompanies(){
     const {setModal, open} = useModalContext()
+    const query = useGetBusCompanies();
+
+    const busCompanies = useMemo(()=>{
+        if(query.data){
+            return query.data.busCompanies
+        }
+        return []
+    },[query.data])
 
     useEffect(()=>{
         setModal(<CreateBusCompany/>)
     },[])
+
 
     return (
         <DbTemplate
@@ -79,8 +89,8 @@ function BusCompanies(){
                         </Box>
                     </Box>
                     {
-                        [1,2,3,4,5,6,7,8,9,10,11,12].map((item, index)=>(
-                            <BusListItem key={'bus-com'+index} name={'company'+index} address={'경상북도 울릉군 뱃길따라 이백리'} contact={'010-1234-1234'} phone={'010-1234-1234'} reservations={123456} />))
+                        busCompanies.map((item, index)=>(
+                            <BusListItem key={'bus-com'+index} name={item.name} address={item.address} contact={item.contact} phone={item.phone} reservations={123456} />))
                     }
                     <Box sx={theme=>({
                         gridRow: '14/15',
