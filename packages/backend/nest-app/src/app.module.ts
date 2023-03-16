@@ -8,6 +8,7 @@ import { ApolloDriver } from '@nestjs/apollo';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from 'src/auth/auth.module';
 import { CompaniesModule } from 'src/companies/companies.module';
+import { CustomUuidScalar } from 'src/common/scalars/uuid';
 
 @Module({
   imports: [
@@ -22,12 +23,16 @@ import { CompaniesModule } from 'src/companies/companies.module';
       username: 'hwasung',
       password: 'hs1024',
       database: 'hs-dokdo',
-      entities: [__dirname + '/**/entities/*.entity{.ts,.js}'],
+      entities: [
+        __dirname + '/**/entities/*.entity{.ts,.js}',
+        __dirname + '/**/entities/**/*.entity{.ts,.js}',
+      ],
       synchronize: true,
     }),
     GraphQLModule.forRoot({
       driver: ApolloDriver,
       autoSchemaFile: 'schema.gql',
+      resolvers: { UUID: CustomUuidScalar },
     }),
     UsersModule,
     AuthModule,

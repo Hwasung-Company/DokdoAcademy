@@ -53,7 +53,13 @@ function LeftSearch(){
                                 enableMouseEvents
                                 style={{marginTop:'1rem'}}
                 >
-                    {...panels}
+                    {
+                        panels.map((v,i)=>(
+                            <Box key={i} sx={{display:'flex', flexDirection:'column'}}>
+                                {v}
+                            </Box>
+                        ))
+                    }
                 </SwipeableViews>
             </Box>
         </Box>

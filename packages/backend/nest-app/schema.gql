@@ -39,6 +39,17 @@ type LoginOutput {
   access_token: String
 }
 
+type Bus {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  price: Float!
+  description: String!
+  seats: Float!
+  busCompany: BusCompany!
+}
+
 type BusCompany {
   _id: String!
   createdAt: DateTime!
@@ -48,6 +59,7 @@ type BusCompany {
   contact: String!
   phone: String!
   email: String!
+  buses: [Bus!]
 }
 
 type CreateBusCompanyOutput {
@@ -56,16 +68,48 @@ type CreateBusCompanyOutput {
   message: String
 }
 
+type GetBusCompaniesOutput {
+  total: Float!
+  totalPage: Float!
+  page: Float!
+  data: [BusCompany!]!
+}
+
+type SearchBusCompaniesOutput {
+  total: Float!
+  totalPage: Float!
+  page: Float!
+  data: [BusCompany!]!
+}
+
+type CreateBusOutput {
+  ok: Boolean!
+  error: String
+  message: String
+}
+
 type Query {
   users: [Users!]!
-  busCompanies: [BusCompany!]!
-  busCompany(_id: String!): BusCompany!
+  busCompanies(input: GetBusCompaniesInput!): GetBusCompaniesOutput!
+  busCompany(name: String!): BusCompany!
+  searchBusCompanies(input: SearchBusCompaniesInput!): SearchBusCompaniesOutput!
+  getBusCompanies: [Bus!]!
+}
+
+input GetBusCompaniesInput {
+  page: Float!
+}
+
+input SearchBusCompaniesInput {
+  name: String!
 }
 
 type Mutation {
   createAccount(input: CreateAccountInput!): CreateAccountOutput!
   login(loginInput: LoginInput!): LoginOutput!
   createBusCompany(input: CreateBusCompanyInput!): CreateBusCompanyOutput!
+  deleteBusCompanies(input: DeleteBusCompanyInputs!): CreateBusCompanyOutput!
+  createBus(input: CreateBusInput!): CreateBusOutput!
 }
 
 input CreateAccountInput {
@@ -85,4 +129,19 @@ input CreateBusCompanyInput {
   phone: String!
   email: String!
   contact: String!
+}
+
+input DeleteBusCompanyInputs {
+  _ids: [UUID!]!
+}
+
+"""A simple UUID parser"""
+scalar UUID
+
+input CreateBusInput {
+  name: String!
+  price: Float!
+  description: String!
+  seats: Float!
+  busCompanyId: UUID!
 }

@@ -20,6 +20,13 @@ function DbTemplate({children, title='대시보드', breadcrumbs}: DbTemplatePro
             <Box gridRow={'2/13'} gridColumn={'4/13'} sx={{
                 padding: '1rem',
             }}>
+                <Box sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    height: '100%',
+                    width: '100%',
+                }}>
+
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <Typography variant={'h6'} sx={{ fontWeight:700 }}>{title}</Typography>
                 </Box>
@@ -50,8 +57,8 @@ function DbTemplate({children, title='대시보드', breadcrumbs}: DbTemplatePro
                         </Link>
                     ))}
                 </Breadcrumbs>
-
                 {children}
+                </Box>
             </Box>
         </GridMain>
     )

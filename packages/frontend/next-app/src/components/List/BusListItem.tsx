@@ -1,4 +1,5 @@
-import {alpha, Box, Checkbox, Typography} from '@mui/material'
+import {alpha, Box, Button, Checkbox, Typography} from '@mui/material'
+import Link from 'next/link'
 
 type BusListItemProps = {
     name: string,
@@ -6,6 +7,7 @@ type BusListItemProps = {
     contact: string,
     phone: string,
     reservations: number,
+    checkBox: JSX.Element,
 }
 
 function BusListItem(props: BusListItemProps){
@@ -21,10 +23,14 @@ function BusListItem(props: BusListItemProps){
             alignItems: 'center',
             justifyContent: 'center',
         }}>
-            <Checkbox/>
+            {props.checkBox}
         </Box>
         <Box sx={{ gridColumn: '2/4', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography variant={'body2'} fontWeight={500}>{props.name}</Typography>
+            <Link href={{
+                pathname: '/admin/db/bus/company/' + props.name,
+            }} passHref>
+                <Typography variant={'body2'} fontWeight={500}>{props.name}</Typography>
+            </Link>
         </Box>
         <Box sx={{ gridColumn: '4/7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <Typography variant={'caption'} fontWeight={500}>{props.address}</Typography>
