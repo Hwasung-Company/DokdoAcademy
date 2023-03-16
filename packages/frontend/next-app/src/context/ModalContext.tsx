@@ -32,7 +32,7 @@ export function ModalContextProvider({children}: {children: ReactNode}){
         isOpen, open: () => {setIsOpen(true)}, Modal, setModal,
         close: () => {setIsOpen(false)}
     }),[
-        open, setIsOpen, Modal, setModal
+        setIsOpen, Modal, setModal
     ])
     return <ModalContext.Provider value={value}>
         {children}
