@@ -5,6 +5,7 @@ const GridMain = styled(Box)(({theme})=>({
     gridTemplateColumns: 'repeat(12, 1fr)',
     gridTemplateRows: 'repeat(12, 1fr)',
     width: '100%',
+    maxHeight: 1200,
     height: '100vh',
     gap: theme.spacing(1),
 }));

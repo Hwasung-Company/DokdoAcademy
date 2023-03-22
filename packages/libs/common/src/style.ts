@@ -2,16 +2,16 @@ export const lightThemeMui = {
     palette:{
         mode: 'light',
         primary: {
-            main: '#2F4EA0',
-            light: '#4B5FEB',
-            dark: '#1A2E7A',
-            contrastText: '#fff',
+            dark: '#083A65',
+            main: '#0F4C81',
+            light: '#197BB7',
+            contrastText: '#ffffff',
         },
         secondary: {
-            main: '#F5F5F5',
-            light: '#FFFFFF',
-            dark: '#C2C2C2',
-            contrastText: '#000',
+            dark: '#810E4A',
+            main: '#BB1856',
+            light: '#E63F75',
+            contrastText: '#ffffff',
         },
         error: {
             main: '#F44336',
@@ -53,16 +53,16 @@ export const darkThemeMui = {
     palette:{
         mode: 'dark',
         primary: {
-            main: '#2F4EA0',
-            light: '#4B5FEB',
-            dark: '#1A2E7A',
-            contrastText: '#fff',
+            dark: '#083A65',
+            main: '#0F4C81',
+            light: '#197BB7',
+            contrastText: '#ffffff',
         },
         secondary: {
-            main: '#ECF2FF',
-            light: '#FFFFFF',
-            dark: '#C2C2C2',
-            contrastText: '#000',
+            dark: '#810E4A',
+            main: '#BB1856',
+            light: '#E63F75',
+            contrastText: '#ffffff',
         },
         error: {
             main: '#F44336',

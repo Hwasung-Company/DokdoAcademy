@@ -1,4 +1,14 @@
-import {alpha, Box, Collapse, List, ListItemButton, ListItemIcon, ListItemText, ListSubheader} from '@mui/material'
+import {
+    alpha,
+    Box,
+    Collapse,
+    List,
+    ListItemButton,
+    ListItemIcon,
+    ListItemText,
+    ListSubheader,
+    Typography
+} from '@mui/material'
 import {
     ConfirmationNumber, Dashboard,
     DirectionsBoat,
@@ -11,7 +21,8 @@ import {useEffect, useMemo, useState} from 'react'
 import {useRouter} from 'next/router'
 
 export default function LeftNav(){
-    const [selectedTab, setSelectedTab] = useState<string[]>([])
+    const router = useRouter()
+    const [selectedTab, setSelectedTab] = useState<string[]>([router.pathname.split('/')[3]])
 
     const handleTab = (tab:string) => {
         if(selectedTab.includes(tab)){
@@ -21,24 +32,23 @@ export default function LeftNav(){
         }
     }
 
-    const router = useRouter()
 
 
-    useEffect(()=>{
-        if(router.pathname.includes('bus')){
-            setSelectedTab(['bus'])
-        }else if(router.pathname.includes('boat')){
-            setSelectedTab(['boat'])
-        }else if(router.pathname.includes('hotel')){
-            setSelectedTab(['hotel'])
-        }else if(router.pathname.includes('restaurant')){
-            setSelectedTab(['restaurant'])
-        }else if(router.pathname.includes('sports')){
-            setSelectedTab(['sports'])
-        }else if(router.pathname.includes('tour')){
-            setSelectedTab(['tour'])
-        }
-    },[router])
+    // useEffect(()=>{
+    //     if(router.pathname.includes('bus')){
+    //         setSelectedTab(['bus'])
+    //     }else if(router.pathname.includes('boat')){
+    //         setSelectedTab(['boat'])
+    //     }else if(router.pathname.includes('hotel')){
+    //         setSelectedTab(['hotel'])
+    //     }else if(router.pathname.includes('restaurant')){
+    //         setSelectedTab(['restaurant'])
+    //     }else if(router.pathname.includes('sports')){
+    //         setSelectedTab(['sports'])
+    //     }else if(router.pathname.includes('tour')){
+    //         setSelectedTab(['tour'])
+    //     }
+    // },[router])
 
     return (
         <Box gridRow={'2/13'} gridColumn={'1/4'} >
@@ -54,12 +64,15 @@ export default function LeftNav(){
                 <List
                     sx={theme=>({ width: '100%', height: '100%', bgcolor: alpha(theme.palette.background.paper, 0.1), borderRadius: '0.5rem' })}
                     component="nav"
-                    alia-labelledby={'company-list'}
-                    subheader={
-                        <ListSubheader component="div" id="company-list" sx={{textAlign:'center', fontSize:'1.2rem' , fontWeight:700}}>
-                            등록 업체 관리
-                        </ListSubheader>
-                    }>
+                    alia-labelledby={'company-list'}>
+                    <Box sx={theme=>({
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        height: '3rem',
+                    })}>
+                        <Typography variant={'h6'} sx={{padding: '0 1rem', color: 'text.secondary'}}>관리자 페이지</Typography>
+                    </Box>
                     <ListItemButton
                         selected={selectedTab.includes('bus')}
                         onClick={()=>handleTab('bus')}>

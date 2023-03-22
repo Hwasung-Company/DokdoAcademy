@@ -11,12 +11,15 @@ export const GET_BUS_COMPANY = gql`
             address
             contact
             phone
+            email
             buses {
                 _id
                 name
                 seats
                 price
             }
+            createdAt
+            updatedAt
         }
     }
 `
@@ -28,7 +31,15 @@ export interface GetBusCompany {
         address: string,
         contact: string,
         phone: string,
-        buses: Bus[]
+        email: string,
+        buses: {
+            _id: string,
+            name: string,
+            seats: number,
+            price: number,
+        }[],
+        createdAt: string,
+        updatedAt: string,
     }
 }
 

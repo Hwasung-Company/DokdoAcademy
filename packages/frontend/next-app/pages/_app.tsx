@@ -43,11 +43,14 @@ function MyApp(props: MyAppProps) {
                         sx={{
                             backgroundColor: 'background.paper',
                             minHeight: '100vh',
+                            boxShadow: 'none'
                         }}>
                         <Container
+                            maxWidth={'xl'}
                             sx={{
-                                minHeight: '100vh',
                                 minWidth: 1200,
+                                minHeight: '100vh',
+                                boxShadow: '0'
                             }}
                         >
                             <Component {...pageProps} />

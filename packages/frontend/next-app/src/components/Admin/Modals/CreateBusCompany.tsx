@@ -6,7 +6,8 @@ import {useModalContext} from 'next-app/src/context/ModalContext'
 import useCreateBusCompany from 'next-app/src/api/companies/useCreateBusCompany'
 import {useSnackContext} from 'next-app/src/context/SnackContext'
 import validate, {toContact} from 'next-app/src/validator'
-import {CreateBusCompanyInput} from 'nest-app/dist/companies/dto/bus/create/create-bus-company.dto'
+import {CreateBusCompanyInput} from 'nest-app/dist/companies/dto/companies/bus/create/create-bus-company.dto'
+
 
 function CreateBusCompany(){
     const [name, setName] = useState<string>('')
