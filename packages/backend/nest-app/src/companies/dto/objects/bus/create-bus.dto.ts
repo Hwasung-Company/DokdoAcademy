@@ -5,10 +5,9 @@ import { CustomUuidScalar } from 'src/common/scalars/uuid';
 
 @InputType()
 export class CreateBusInput extends PickType(Bus, [
-  'name',
-  'price',
-  'description',
-  'seats',
+  'number',
+  'type',
+  'capacity',
 ]) {
   @Field((type) => CustomUuidScalar)
   busCompanyId: string;

@@ -1,11 +1,11 @@
 {
-  "extends": "./tsconfig.spec.json",
-  "compilerOptions": {
-    "paths": {
-      "@common": ["packages/libs/common/src"],
-      "@components": ["packages/libs/frontend/components/src"],
-    }
-  },
-  "files": [],
-  "references": [{ "path": "./packages/libs/common" }]
+    "extends": "./tsconfig.spec.json",
+    "compilerOptions": {
+        "paths": {
+            "@common": ["packages/libs/common/src"],
+            "@components": ["packages/libs/frontend/components/src"]
+        }
+    },
+    "files": [],
+    "references": [{ "path": "./packages/libs/common" }]
 }

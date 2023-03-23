@@ -8,22 +8,18 @@ import {
 import { Target } from 'src/companies/entities/objects/target.entity';
 import { BusCompany } from 'src/companies/entities/companies/bus-company.entity';
 
-enum BusType {
+export enum BusType {
   NORMAL = 'NORMAL',
   MINIBUS = 'MINIBUS',
   BIG = 'BIG',
 }
 
-registerEnumType(BusType);
+registerEnumType(BusType, { name: 'BusType' });
 
 @InputType({ isAbstract: true })
 @ObjectType()
 @Entity()
 export class Bus extends Target {
-  @Field((type) => String)
-  @Column()
-  name: string;
-
   @Field((type) => String)
   @Column()
   number: string;

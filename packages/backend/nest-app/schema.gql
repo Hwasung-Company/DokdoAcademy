@@ -46,8 +46,16 @@ type Bus {
   name: String!
   price: Float!
   description: String!
-  seats: Float!
+  number: String!
+  type: BusType!
+  capacity: Float!
   busCompany: BusCompany!
+}
+
+enum BusType {
+  NORMAL
+  MINIBUS
+  BIG
 }
 
 type BusCompany {
@@ -139,9 +147,8 @@ input DeleteBusCompanyInputs {
 scalar UUID
 
 input CreateBusInput {
-  name: String!
-  price: Float!
-  description: String!
-  seats: Float!
+  number: String!
+  type: BusType!
+  capacity: Float!
   busCompanyId: UUID!
 }

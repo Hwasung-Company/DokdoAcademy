@@ -1,5 +1,5 @@
 export const lightThemeMui = {
-    palette:{
+    palette: {
         mode: 'light',
         primary: {
             dark: '#083A65',
@@ -44,13 +44,13 @@ export const lightThemeMui = {
             hint: '#000',
         },
         background: {
-            default: '#ffffff',
+            default: '#F5F7FD',
             paper: '#ffffff',
         },
-    }
-}
+    },
+};
 export const darkThemeMui = {
-    palette:{
+    palette: {
         mode: 'dark',
         primary: {
             dark: '#083A65',
@@ -99,4 +99,4 @@ export const darkThemeMui = {
             paper: '#121212',
         },
     },
-}
+};
