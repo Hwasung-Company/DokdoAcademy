@@ -43,3 +43,11 @@ a {
 dl {
     margin: 0;
 }
+
+.mouse_hover {
+    cursor: pointer;
+}
+
+.mouse_hover:hover {
+    filter: brightness(0.8);
+}

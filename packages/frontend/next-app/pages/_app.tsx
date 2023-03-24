@@ -26,7 +26,7 @@ function MyApp(props: MyAppProps) {
         emotionCache = clientSideEmotionCache,
         pageProps,
     } = props;
-    const [colorMode, setColorMode] = useState<'light' | 'dark'>('light');
+    const [colorMode, setColorMode] = useState<'light' | 'dark'>();
     const lightTheme = createTheme({
         ...(lightThemeMui as any),
     });
@@ -35,20 +35,26 @@ function MyApp(props: MyAppProps) {
         ...(darkThemeMui as any),
     });
 
+    useEffect(() => {
+        setColorMode('light');
+    }, []);
+
     return (
         <CacheProvider value={clientSideEmotionCache}>
+            <CssBaseline />
             <ThemeProvider
-                theme={colorMode === 'light' ? lightTheme : darkTheme}
+                theme={
+                    colorMode === 'light' || !colorMode ? lightTheme : darkTheme
+                }
             >
                 <ContextProvider>
-                    <CssBaseline />
                     <Box
                         sx={{
                             minHeight: '100vh',
                             boxShadow: 'none',
                         }}
                     >
-                        <Component {...pageProps} />
+                        {!colorMode ? <></> : <Component {...pageProps} />}
                     </Box>
                     <SpeedDial
                         ariaLabel={'color mode'}
