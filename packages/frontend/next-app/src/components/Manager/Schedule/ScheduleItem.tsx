@@ -95,10 +95,11 @@ const ScheduleItem = ({ dot, title, contents }: ScheduleItemProps) => {
                 >
                     <Typography variant='h6'>{title}</Typography>
                     {Array.isArray(contents) ? (
-                        <dl>
+                        <dl key={title + 'dl'}>
                             {contents.map((content, index) => [
                                 <dt key={'schedule' + title + index}>
                                     <Typography
+                                        component={'div'}
                                         variant='body1'
                                         sx={{
                                             '& > svg': {
@@ -151,7 +152,7 @@ const ScheduleItem = ({ dot, title, contents }: ScheduleItemProps) => {
                                         </dd>
                                     )),
                                 content.info !== undefined && (
-                                    <dd>
+                                    <dd key={'info' + title + 'dd'}>
                                         <Box
                                             sx={{
                                                 display: 'flex',
@@ -159,7 +160,7 @@ const ScheduleItem = ({ dot, title, contents }: ScheduleItemProps) => {
                                                 width: '100%',
                                                 padding: '0.5rem',
                                                 border: '1px solid',
-                                                borderColor: 'grey.300',
+                                                borderColor: 'divider',
                                             }}
                                         >
                                             <Typography
