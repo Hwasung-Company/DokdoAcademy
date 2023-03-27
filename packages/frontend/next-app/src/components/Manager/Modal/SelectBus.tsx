@@ -1,5 +1,6 @@
 import { DirectionsBus } from '@mui/icons-material';
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, Typography } from '@mui/material';
+import { useModal } from 'next-app/src/context/ModalContext';
 import MContainer from '../../atoms/modal/layout/MContainer';
 import Title from '../../atoms/modal/text/Title';
 
@@ -26,6 +27,7 @@ const BusButton = ({ num }: { num: number }) => {
 };
 
 function SelectBus() {
+    const { closeModal } = useModal();
     return (
         <MContainer>
             <Title text='호차 변경' />
@@ -56,6 +58,23 @@ function SelectBus() {
                         <BusButton num={8} />
                     </Grid>
                 </Grid>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        justifyContent: 'flex-end',
+                    }}
+                >
+                    <Button
+                        onClick={closeModal}
+                        variant='outlined'
+                        sx={{ mt: '1rem' }}
+                    >
+                        취소
+                    </Button>
+                    <Button variant='contained' sx={{ mt: '1rem', ml: '1rem' }}>
+                        확인
+                    </Button>
+                </Box>
             </Box>
         </MContainer>
     );

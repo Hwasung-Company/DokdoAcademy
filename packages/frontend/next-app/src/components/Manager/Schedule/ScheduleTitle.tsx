@@ -44,7 +44,7 @@ const ScheduleTitle = ({
                 boxShadow: 'none',
                 borderTop: `1px solid ${theme.palette.divider}`,
                 borderBottom: `1px solid ${theme.palette.divider}`,
-                zIndex: 999,
+                zIndex: 9,
             })}
         >
             <Box

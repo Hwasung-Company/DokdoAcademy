@@ -142,7 +142,7 @@ const ScheduleItem = ({ dot, title, contents }: ScheduleItemProps) => {
                                                     }}
                                                 />
                                                 <Typography
-                                                    variant='body1'
+                                                    variant='body2'
                                                     fontWeight={'bold'}
                                                     color='primary.main'
                                                 >
@@ -164,7 +164,7 @@ const ScheduleItem = ({ dot, title, contents }: ScheduleItemProps) => {
                                             }}
                                         >
                                             <Typography
-                                                variant='body1'
+                                                variant='subtitle2'
                                                 color='warning.main'
                                                 fontWeight='bold'
                                             >
@@ -196,7 +196,7 @@ const ScheduleItem = ({ dot, title, contents }: ScheduleItemProps) => {
                                                                 'inline-block',
                                                         }}
                                                     />
-                                                    <Typography variant='body1'>
+                                                    <Typography variant='caption'>
                                                         {info}
                                                     </Typography>
                                                 </Box>

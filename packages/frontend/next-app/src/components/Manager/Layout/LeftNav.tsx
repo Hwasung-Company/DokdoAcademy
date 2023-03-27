@@ -1,8 +1,12 @@
 import { Assignment, FormatListBulleted, Home } from '@mui/icons-material';
 import { Box, IconButton, Typography } from '@mui/material';
 import { styled } from '@mui/system';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function LeftNav() {
+    const router = useRouter();
+
     return (
         <Box
             sx={{
@@ -13,6 +17,8 @@ export default function LeftNav() {
                 width: '5rem',
                 backgroundColor: 'background.default',
                 boxShadow: '0 0 0.1rem 0.1rem rgba(0, 0, 0, 0.1)',
+                gridColumn: 'span 1',
+                zIndex: 10,
             }}
         >
             <Box
@@ -26,7 +32,15 @@ export default function LeftNav() {
                 }}
             >
                 <ButtonContainer>
-                    <IconContainer>
+                    <IconContainer
+                        onClick={() => router.push('/manager')}
+                        color={
+                            router.pathname === '/manager' ||
+                            router.pathname.includes('/manager/menu')
+                                ? 'primary'
+                                : 'inherit'
+                        }
+                    >
                         <Home />
                         <Typography variant='caption'>홈</Typography>
                     </IconContainer>

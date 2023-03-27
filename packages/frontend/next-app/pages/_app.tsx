@@ -49,6 +49,7 @@ function MyApp(props: MyAppProps) {
             >
                 <ContextProvider>
                     <Box
+                        component={Paper}
                         sx={{
                             minHeight: '100vh',
                             boxShadow: 'none',

@@ -1,0 +1,118 @@
+import { CameraAlt, FormatListBulleted, Male } from '@mui/icons-material';
+import { Box, Checkbox, Paper, Typography } from '@mui/material';
+import ButtonWithIcon from '../atoms/flex/ButtonWithIcon';
+import { MenuSectionItem } from '../Manager/Layout/Menu/MenuSection';
+
+export default function HotelCard() {
+    return (
+        <Box
+            component={Paper}
+            sx={{
+                height: '9rem',
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: 'none',
+                borderRadius: '1rem',
+                gridColumn: 'span 2',
+                padding: '1rem',
+                gap: '1rem',
+            }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                }}
+            >
+                <Item title='숙소명' text='이사부호텔' />
+                <Item title='숙박인원' text='32명' />
+                <Item title='사용객실(1인/2인/3인)' text='1/12/3' />
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    height: '100%',
+                    gap: '1rem',
+                }}
+            >
+                <ButtonWithIcon
+                    onClick={() => {
+                        console.log('');
+                    }}
+                    icon={<FormatListBulleted />}
+                    text='객실 목록'
+                />
+                <ButtonWithIcon
+                    onClick={() => {
+                        console.log('');
+                    }}
+                    icon={<CameraAlt />}
+                    text='영수증 등록'
+                />
+            </Box>
+        </Box>
+    );
+}
+
+function Item({
+    title,
+    text,
+    subText,
+    error,
+    success,
+}: {
+    title: string;
+    text: string;
+    subText?: string;
+    error?: boolean;
+    success?: boolean;
+}) {
+    return (
+        <Box
+            component={Paper}
+            sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                boxShadow: 'none',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100%',
+            }}
+        >
+            <Typography
+                variant='caption'
+                fontWeight={700}
+                sx={{
+                    alignSelf: 'flex-start',
+                }}
+            >
+                {title}
+            </Typography>
+            <Typography
+                variant='h5'
+                fontWeight={700}
+                sx={{
+                    color: error
+                        ? 'error.main'
+                        : success
+                        ? 'success.main'
+                        : 'text.primary',
+                }}
+            >
+                {text}
+            </Typography>
+            {subText && (
+                <Typography
+                    variant='body2'
+                    sx={{
+                        position: 'absolute',
+                        bottom: '0.5rem',
+                    }}
+                >
+                    {subText}
+                </Typography>
+            )}
+        </Box>
+    );
+}
