@@ -1,7 +1,11 @@
+import { CameraAlt } from '@mui/icons-material';
 import BusCheckCard from 'next-app/src/components/Cards/BusCheckCard';
+import { useModal } from 'next-app/src/context/ModalContext';
 import dynamic from 'next/dynamic';
+import { useEffect } from 'react';
 import MenuSection, {
     MenuSectionButton,
+    MenuSectionButtonWithIcon,
     MenuSectionItem,
     MenuSectionItemGrid,
 } from '../../Layout/Menu/MenuSection';
@@ -20,7 +24,21 @@ const TourInformation = dynamic(
     },
 );
 
+const BusPicModal = dynamic(
+    () => import('next-app/src/components/Manager/Modal/BusPicModal'),
+    {
+        ssr: false,
+    },
+);
+
 export default function BusDetails() {
+    const { setModal, openModal, closeModal } = useModal();
+
+    const handleModal = () => {
+        setModal(<BusPicModal />);
+        openModal();
+    };
+
     return (
         <MenuTemplate>
             <TourInformation />
@@ -28,6 +46,12 @@ export default function BusDetails() {
                 <MenuSectionItemGrid>
                     <MenuSectionItem title='담당호차' text='1호차' />
                     <MenuSectionItem title='총원' text='32명' />
+                    <MenuSectionButtonWithIcon
+                        title='버스 사진 등록'
+                        icon={<CameraAlt />}
+                        onClick={handleModal}
+                        span='2'
+                    />
                 </MenuSectionItemGrid>
             </MenuSection>
             <MenuSection title='탑승 인원 확인'>

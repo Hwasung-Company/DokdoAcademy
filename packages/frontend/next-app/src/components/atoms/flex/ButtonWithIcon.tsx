@@ -4,13 +4,16 @@ export default function ButtonWithIcon({
     icon,
     text,
     onClick,
+    justifyContent = 'initial',
 }: {
     icon: React.ReactNode;
     text: string;
     onClick: () => void;
+    justifyContent?: string;
 }) {
     return (
         <Box
+            onClick={onClick}
             className='mouse_hover'
             sx={{
                 display: 'flex',
@@ -22,6 +25,7 @@ export default function ButtonWithIcon({
                 color: 'primary.contrastText',
                 borderRadius: '1rem',
                 padding: '0 1rem',
+                justifyContent: justifyContent,
             }}
         >
             {icon}

@@ -117,7 +117,7 @@ const NameListHeader = styled(Box)(({ theme }) => ({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    '& > *:nth-child(2)': {
+    '& > *:nth-of-type(2)': {
         justifyContent: 'flex-start',
         paddingLeft: '1rem',
     },
@@ -126,7 +126,7 @@ const NameListHeader = styled(Box)(({ theme }) => ({
 const NameListItem = styled(NameListHeader)(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     color: theme.palette.text.primary,
-    '& > *:nth-child(2)': {
+    '& > *:nth-of-type(2)': {
         justifyContent: 'flex-start',
         paddingLeft: '1rem',
     },

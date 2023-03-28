@@ -1,7 +1,22 @@
-import { Call, Camera, CameraAlt, Male } from '@mui/icons-material';
-import { Box, Checkbox, IconButton, Paper, Typography } from '@mui/material';
+import { Call, CameraAlt } from '@mui/icons-material';
+import { Box, IconButton, Paper, Typography } from '@mui/material';
+import { useModal } from 'next-app/src/context/ModalContext';
+import dynamic from 'next/dynamic';
+
+const RestaurantReceiptModal = dynamic(
+    () =>
+        import('next-app/src/components/Manager/Modal/RestaurantReceiptModal'),
+    { ssr: false },
+);
 
 export default function RestaurantCard() {
+    const { setModal, openModal, closeModal } = useModal();
+
+    const handleModal = () => {
+        setModal(<RestaurantReceiptModal />);
+        openModal();
+    };
+
     return (
         <Box
             component={Paper}
@@ -96,6 +111,7 @@ export default function RestaurantCard() {
                         display: 'flex',
                         flexDirection: 'column',
                     }}
+                    onClick={handleModal}
                 >
                     <CameraAlt fontSize='large' />
                     <Typography variant='caption'>영수증 등록</Typography>

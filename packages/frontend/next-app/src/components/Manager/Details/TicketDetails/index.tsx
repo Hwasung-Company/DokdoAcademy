@@ -2,8 +2,10 @@ import { DirectionsTransit } from '@mui/icons-material';
 import { alpha, Box, Icon, SvgIcon, Typography } from '@mui/material';
 import { Theme } from '@mui/material/styles';
 import { useTheme } from '@mui/system';
+import { useModal } from 'next-app/src/context/ModalContext';
 import dynamic from 'next/dynamic';
 import MenuSection from '../../Layout/Menu/MenuSection';
+import TicketReceiptModal from '../../Modal/TicketReceiptModal';
 
 const MenuTemplate = dynamic(
     () => import('next-app/src/components/Manager/Layout/Menu/MenuTemplate'),
@@ -21,6 +23,14 @@ const TourInformation = dynamic(
 
 export default function TicketDetails() {
     const theme = useTheme();
+
+    const { setModal, openModal, closeModal } = useModal();
+
+    const handleReceiptModal = () => {
+        setModal(<TicketReceiptModal />);
+        openModal();
+    };
+
     return (
         <MenuTemplate>
             <TourInformation />
@@ -43,9 +53,7 @@ export default function TicketDetails() {
                         }
                         text='모노레일'
                         color={theme.palette.primary.dark}
-                        onClick={() => {
-                            console.log();
-                        }}
+                        onClick={handleReceiptModal}
                     />
                     <Btn
                         icon={
@@ -60,9 +68,7 @@ export default function TicketDetails() {
                         }
                         text='케이블카'
                         color={theme.palette.primary.main}
-                        onClick={() => {
-                            console.log();
-                        }}
+                        onClick={handleReceiptModal}
                     />
                     <Btn
                         icon={
@@ -77,9 +83,7 @@ export default function TicketDetails() {
                         }
                         text='봉래폭포'
                         color={theme.palette.success.main}
-                        onClick={() => {
-                            console.log();
-                        }}
+                        onClick={handleReceiptModal}
                     />
                     <Btn
                         icon={
@@ -98,9 +102,7 @@ export default function TicketDetails() {
                         }
                         text='관음도'
                         color={theme.palette.info.main}
-                        onClick={() => {
-                            console.log();
-                        }}
+                        onClick={handleReceiptModal}
                     />
                     <Btn
                         icon={
@@ -122,9 +124,7 @@ export default function TicketDetails() {
                         }
                         text='예림원'
                         color={theme.palette.warning.main}
-                        onClick={() => {
-                            console.log();
-                        }}
+                        onClick={handleReceiptModal}
                     />
                     <Btn
                         text=''
@@ -184,6 +184,7 @@ function Btn({
 }) {
     return (
         <Box
+            onClick={onClick}
             className={color ? 'mouse_hover' : ''}
             sx={(theme) => ({
                 display: 'flex',

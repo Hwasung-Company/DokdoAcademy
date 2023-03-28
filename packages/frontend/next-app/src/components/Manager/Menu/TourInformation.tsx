@@ -6,9 +6,12 @@ import SelectBus from '../Modal/SelectBus';
 
 export default function TourInformation() {
     const { openModal, closeModal, setModal } = useModal();
-    useEffect(() => {
+
+    const handleModal = () => {
         setModal(<SelectBus />);
-    }, []);
+        openModal();
+    };
+
     return (
         <Paper
             id='TourTitle'
@@ -175,7 +178,7 @@ export default function TourInformation() {
             <Box sx={{ display: 'flex', flex: 3, height: '100%' }}>
                 <Box
                     className='mouse_hover'
-                    onClick={openModal}
+                    onClick={handleModal}
                     sx={{
                         display: 'flex',
                         flexDirection: 'column',
