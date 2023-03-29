@@ -9,13 +9,14 @@ import { AuthResolver } from 'src/auth/auth.resolver';
 import { JwtStrategy } from 'src/auth/jwt.strategy';
 
 @Module({
-  imports: [
-    UsersModule,
-    PassportModule,
-    JwtModule.register({
-      secret: jwtConstants.secret,
-    }),
-  ],
-  providers: [AuthService, LocalStrategy, JwtStrategy, AuthResolver],
+    imports: [
+        UsersModule,
+        PassportModule,
+        JwtModule.register({
+            secret: jwtConstants.secret,
+        }),
+    ],
+    providers: [AuthService, LocalStrategy, JwtStrategy, AuthResolver],
+    exports: [AuthService],
 })
 export class AuthModule {}

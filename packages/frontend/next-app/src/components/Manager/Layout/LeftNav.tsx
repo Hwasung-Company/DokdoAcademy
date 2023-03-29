@@ -46,7 +46,14 @@ export default function LeftNav() {
                     </IconContainer>
                 </ButtonContainer>
                 <ButtonContainer>
-                    <IconContainer>
+                    <IconContainer
+                        onClick={() => router.push('/manager/tours')}
+                        color={
+                            router.pathname.includes('/manager/tours')
+                                ? 'primary'
+                                : 'inherit'
+                        }
+                    >
                         <FormatListBulleted />
                         <Typography
                             variant='caption'
@@ -57,7 +64,14 @@ export default function LeftNav() {
                     </IconContainer>
                 </ButtonContainer>
                 <ButtonContainer>
-                    <IconContainer>
+                    <IconContainer
+                        onClick={() => router.push('/manager/receipt')}
+                        color={
+                            router.pathname.includes('/manager/receipt')
+                                ? 'primary'
+                                : 'inherit'
+                        }
+                    >
                         <Assignment />
                         <Typography
                             variant='caption'

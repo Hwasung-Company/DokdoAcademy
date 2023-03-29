@@ -1,38 +1,11 @@
-import {
-    alpha,
-    Avatar,
-    Box,
-    Button,
-    Divider,
-    IconButton,
-    InputAdornment,
-    Paper,
-    Tab,
-    Tabs,
-    TextField,
-    Theme,
-    Typography,
-} from '@mui/material';
-import { useTheme } from '@mui/styles';
-import {
-    ArrowDropDown,
-    BusinessCenter,
-    DateRange,
-    ReceiptLong,
-    Search,
-    ViewList,
-    Work,
-} from '@mui/icons-material';
-import SwipeableViews from 'react-swipeable-views';
-import Header from 'next-app/src/components/Admin/Templates/Header';
 import GridMain from '@dokdo-academy/component/dist/Layouts/GridMain';
-import useTabs from 'next-app/src/hooks/tab/useTabs';
-import UserCard from 'next-app/src/components/Cards/UserCard';
-import ScheduleCard from 'next-app/src/components/Cards/ScheduleCard';
-import LeftSearch from 'next-app/src/components/Admin/Templates/LeftSearch';
+import { Box, Button } from '@mui/material';
 import { Contents } from 'next-app/src/components/Admin/Templates/Contents';
-import TitleWithButton from 'next-app/src/components/atoms/admin/layout/TitleWithButton';
-import TabWithBorder from 'next-app/src/components/atoms/admin/layout/TabWithBorder';
+import Header from 'next-app/src/components/Admin/Templates/Header';
+import LeftSearch from 'next-app/src/components/Admin/Templates/LeftSearch';
+import TabWithBorder from 'next-app/src/components/atoms/layout/TabWithBorder';
+import TitleWithButton from 'next-app/src/components/atoms/layout/TitleWithButton';
+import UserCard from 'next-app/src/components/Cards/UserCard';
 import dynamic from 'next/dynamic';
 import { useMemo } from 'react';
 

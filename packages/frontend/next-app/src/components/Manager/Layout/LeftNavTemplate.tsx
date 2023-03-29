@@ -20,6 +20,7 @@ export default function LeftNavTemplate({ children }: LeftNavTemplateProps) {
                 gap: '1rem',
             }}
         >
+            <Box sx={{ gridColumn: 'span 1' }} />
             <LeftNav />
             {children}
         </Box>

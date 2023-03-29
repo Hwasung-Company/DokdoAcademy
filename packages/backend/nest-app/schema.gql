@@ -37,6 +37,7 @@ type LoginOutput {
   error: String
   message: String
   access_token: String
+  role: String
 }
 
 type Bus {

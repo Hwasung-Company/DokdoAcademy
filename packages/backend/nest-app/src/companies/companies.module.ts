@@ -6,9 +6,10 @@ import { BusCompanyResolver } from 'src/companies/resolvers/bus-company.resolver
 import { BusObjectService } from 'src/companies/services/objects/bus.service';
 import { Bus } from 'src/companies/entities/objects/bus.entity';
 import { BusResolver } from 'src/companies/resolvers/objects/bus.resolver';
+import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BusCompany, Bus])],
-  providers: [BusService, BusCompanyResolver, BusObjectService, BusResolver],
+    imports: [TypeOrmModule.forFeature([BusCompany, Bus])],
+    providers: [BusService, BusCompanyResolver, BusObjectService, BusResolver],
 })
 export class CompaniesModule {}

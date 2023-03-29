@@ -7,19 +7,18 @@ import { LocalStrategy } from 'src/auth/local.strategy';
 
 @Resolver()
 export class AuthResolver {
-  constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) {}
 
-  @Mutation(() => LoginOutput)
-  @UseGuards(GqlAuthGuard)
-  @UseGuards(LocalStrategy)
-  async login(@Args('loginInput') loginInput: LoginInput, @Context() ctx) {
-    try {
-      return this.authService.login(ctx.user);
-    } catch (error) {
-      return {
-        ok: false,
-        error,
-      };
+    @Mutation(() => LoginOutput)
+    @UseGuards(GqlAuthGuard)
+    async login(@Args('loginInput') loginInput: LoginInput, @Context() ctx) {
+        try {
+            return this.authService.login(ctx.user);
+        } catch (error) {
+            return {
+                ok: false,
+                error,
+            };
+        }
     }
-  }
 }

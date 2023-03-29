@@ -23,9 +23,7 @@ export default function Schedule() {
         },
         [ref],
     );
-    useEffect(() => {
-        console.log(ref);
-    }, [ref]);
+
     return (
         <Box
             ref={ref}
