@@ -7,11 +7,11 @@ type Users {
   createdAt: DateTime!
   updatedAt: DateTime!
   username: String!
-  password: String!
+  password: String
   name: String!
   email: String!
   phone: String!
-  avatar: String!
+  avatar: String
   role: UserRole!
 }
 
@@ -97,12 +97,65 @@ type CreateBusOutput {
   message: String
 }
 
+type Participant {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  sexuality: Sexuality!
+  contact: String!
+  birth: DateTime!
+  tag: String!
+  discount: Boolean!
+  deposit: Float!
+  roomMateTarget: String!
+  department: String!
+  position: String!
+  company: String!
+  companyGroup: String!
+  companyContact: String!
+  group: Group!
+}
+
+enum Sexuality {
+  MALE
+  FEMALE
+}
+
+type Group {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  participants: [Participant!]!
+}
+
+input TourInput {
+  name: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  description: String
+  gatheringPlace: String!
+  section: SectionInput!
+  section_id: String!
+}
+
+input SectionInput {
+  name: String!
+  sponsor: String
+  year: Float!
+  tours: [TourInput!]
+}
+
 type Query {
   users: [Users!]!
+  user: Users!
   busCompanies(input: GetBusCompaniesInput!): GetBusCompaniesOutput!
   busCompany(name: String!): BusCompany!
   searchBusCompanies(input: SearchBusCompaniesInput!): SearchBusCompaniesOutput!
   getBusCompanies: [Bus!]!
+  sections: [Section!]!
+  toursBySection(section_id: String!): [Tour!]!
 }
 
 input GetBusCompaniesInput {
@@ -113,12 +166,39 @@ input SearchBusCompaniesInput {
   name: String!
 }
 
+type Section {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  sponsor: String
+  year: Float!
+  tours: [Tour!]
+}
+
+type Tour {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  startDate: DateTime!
+  endDate: DateTime!
+  description: String
+  gatheringPlace: String!
+  section: Section!
+  section_id: String!
+}
+
 type Mutation {
   createAccount(input: CreateAccountInput!): CreateAccountOutput!
   login(loginInput: LoginInput!): LoginOutput!
   createBusCompany(input: CreateBusCompanyInput!): CreateBusCompanyOutput!
   deleteBusCompanies(input: DeleteBusCompanyInputs!): CreateBusCompanyOutput!
   createBus(input: CreateBusInput!): CreateBusOutput!
+  createSection(input: CreateSectionInput!): Section!
+  deleteSection(_id: String!): Boolean!
+  createTour(input: CreateTourInput!): Boolean!
+  deleteTour(_id: String!): Boolean!
 }
 
 input CreateAccountInput {
@@ -129,7 +209,7 @@ input CreateAccountInput {
 
 input LoginInput {
   username: String!
-  password: String!
+  password: String
 }
 
 input CreateBusCompanyInput {
@@ -152,4 +232,23 @@ input CreateBusInput {
   type: BusType!
   capacity: Float!
   busCompanyId: UUID!
+}
+
+input CreateSectionInput {
+  name: String!
+  sponsor: String
+  year: Float!
+}
+
+input CreateTourInput {
+  _id: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  name: String
+  startDate: DateTime
+  endDate: DateTime
+  description: String
+  gatheringPlace: String
+  section: SectionInput
+  section_id: String
 }

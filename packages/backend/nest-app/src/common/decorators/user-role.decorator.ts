@@ -31,8 +31,6 @@ export class UserRoleGuard implements CanActivate {
             ],
         );
 
-        console.log(user, roles);
-
         if (!roles) {
             return true;
         }

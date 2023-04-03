@@ -5,6 +5,8 @@ import {
     Divider,
     IconButton,
     Paper,
+    Popover,
+    Stack,
     Theme,
     Typography,
 } from '@mui/material';
@@ -17,10 +19,24 @@ import {
 } from '@mui/icons-material';
 import { useTheme } from '@mui/styles';
 import { useRouter } from 'next/router';
+import { MouseEvent, useEffect, useState } from 'react';
+import { useLogin } from 'next-app/src/context/LoginContext';
 
 function Header() {
     const theme = useTheme() as Theme;
     const router = useRouter();
+    const [popoverEl, setPopoverEl] = useState<null | HTMLButtonElement>(null);
+
+    const { logout, user } = useLogin();
+
+    const popoverOpen = (event: MouseEvent<HTMLButtonElement>) => {
+        setPopoverEl(event.currentTarget);
+    };
+
+    const popoverClose = () => {
+        setPopoverEl(null);
+    };
+
     return (
         <Paper
             elevation={0}
@@ -140,13 +156,34 @@ function Header() {
                 >
                     <Avatar sx={{ width: '2.5rem', height: '2.5rem' }} />
                     <Typography variant={'caption'} sx={{ fontWeight: 200 }}>
-                        username
+                        {user?.username}
                     </Typography>
                 </Box>
-                <IconButton>
+                <IconButton onClick={popoverOpen}>
                     <ArrowDropDown />
                 </IconButton>
             </Box>
+            <Popover
+                open={Boolean(popoverEl)}
+                anchorEl={popoverEl}
+                onClose={popoverClose}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left',
+                }}
+            >
+                <Stack spacing={1}>
+                    <Button>
+                        <Typography
+                            variant={'caption'}
+                            sx={{ fontWeight: 500 }}
+                            onClick={logout}
+                        >
+                            로그아웃
+                        </Typography>
+                    </Button>
+                </Stack>
+            </Popover>
         </Paper>
     );
 }

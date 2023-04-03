@@ -13,7 +13,9 @@ import {
     USER_ROLE_KEY,
 } from './common/decorators/user-role.decorator';
 import { SectionsModule } from './sections/sections.module';
+import { ToursModule } from './tours/tours.module';
 import { UsersModule } from './users/users.module';
+import { SchedulesModule } from './schedules/schedules.module';
 
 @Module({
     imports: [
@@ -43,6 +45,8 @@ import { UsersModule } from './users/users.module';
         AuthModule,
         CompaniesModule,
         SectionsModule,
+        ToursModule,
+        SchedulesModule,
     ],
     controllers: [AppController],
     providers: [AppService],

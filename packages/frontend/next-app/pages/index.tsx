@@ -1,48 +1,15 @@
-import {
-    Box,
-    Button,
-    Divider,
-    Paper,
-    TextField,
-    Typography,
-} from '@mui/material';
+import { gql } from '@apollo/client';
 import GridMain from '@dokdo-academy/component/dist/Layouts/GridMain';
-import { useTheme } from '@mui/styles';
-import { useEffect, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { Box, Button, TextField, Typography } from '@mui/material';
+import { useLogin } from 'next-app/src/context/LoginContext';
 import { useSnackContext } from 'next-app/src/context/SnackContext';
-import { useRouter } from 'next/router';
-
-const LOGIN = gql`
-    mutation login($input: LoginInput!) {
-        login(loginInput: $input) {
-            access_token
-            role
-            ok
-        }
-    }
-`;
+import { useState } from 'react';
 
 function Home() {
-    const [login, { data, loading, error }] = useMutation(LOGIN);
+    const { openSnack } = useSnackContext();
+    const { login, isLogin } = useLogin();
     const [id, setId] = useState('');
     const [password, setPassword] = useState('');
-    const { openSnack } = useSnackContext();
-    const router = useRouter();
-    useEffect(() => {
-        if (data?.login?.ok) {
-            localStorage.setItem(
-                'hs-academy-auth-token',
-                data.login.access_token,
-            );
-            openSnack('로그인 성공', 'success');
-            if (data.login.role === 'ADMIN') {
-                router.push('/admin');
-            } else {
-                router.push('/manager');
-            }
-        }
-    }, [data]);
     return (
         <GridMain>
             <Box

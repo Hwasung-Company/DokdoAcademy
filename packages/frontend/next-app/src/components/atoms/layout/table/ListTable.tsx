@@ -7,6 +7,7 @@ export default styled(Box)(({ theme }) => ({
     borderRadius: '0.5rem',
     border: '1px solid #e0e0e0',
     overflowY: 'scroll',
+    backgroundColor: theme.palette.background.paper,
 
     '& > div:first-of-type': {
         backgroundColor: alpha(theme.palette.primary.main, 0.1),
@@ -15,6 +16,10 @@ export default styled(Box)(({ theme }) => ({
 
     '& > div.canceled': {
         color: theme.palette.error.main,
+    },
+
+    '& > div.center': {
+        justifyContent: 'center',
     },
 
     '& > div': {
@@ -30,6 +35,7 @@ export default styled(Box)(({ theme }) => ({
             alignItems: 'center',
             justifyContent: 'center',
             flex: 1,
+            wordBreak: 'break-all',
         },
         '& > div:first-of-type': {
             flex: 2,
@@ -47,6 +53,13 @@ export default styled(Box)(({ theme }) => ({
             position: 'absolute',
             bottom: '0.1rem',
             color: theme.palette.grey[500],
+        },
+        '& > div > div': {
+            fontSize: '0.7rem',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
         },
     },
 }));

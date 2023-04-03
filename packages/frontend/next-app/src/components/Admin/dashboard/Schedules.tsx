@@ -5,8 +5,37 @@ import {
 } from '@mui/icons-material';
 import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
 import { alpha, styled } from '@mui/system';
+import { Section } from 'nest-app/src/sections/entities/sections.entity';
+import { Tour } from 'nest-app/src/tours/entities/tours.entity';
+import { getToursBySection } from 'next-app/src/api/tours/tours';
+import { useEffect, useState } from 'react';
+import ListTable from '../../atoms/layout/table/ListTable';
 
-export const Schedules = () => {
+type SchedulesProps = {
+    section?: Section;
+};
+
+export const Schedules = ({ section }: SchedulesProps) => {
+    const [tours, setTours] = useState<any[]>([]);
+
+    const { data, loading, error, query } = getToursBySection();
+
+    useEffect(() => {
+        section &&
+            query({
+                variables: {
+                    input: (section as any)._id,
+                },
+            });
+    }, [section]);
+
+    useEffect(() => {
+        if (data) {
+            console.log(data);
+            setTours(data.toursBySection);
+        }
+    }, [data]);
+
     return (
         <Box>
             <FilterContainer>
@@ -65,78 +94,75 @@ export const Schedules = () => {
                     </Box>
                 </Box>
             </FilterContainer>
-            <ScheduelContainer>
-                <ScheduleColumn>
-                    <ScheduleHeader>
-                        <Box flex={1}>
-                            <Checkbox size='medium' />
+            <ListTable>
+                <Box>
+                    <Checkbox />
+                    <Box>
+                        이름
+                        <Typography variant={'caption'}>(등록일)</Typography>
+                    </Box>
+
+                    <Box>예약상태</Box>
+                    <Box>기간</Box>
+                    <Box>총원</Box>
+                    <Box>일정표</Box>
+                    <Box>담당자</Box>
+                </Box>
+                {tours &&
+                    tours.map((v, i) => (
+                        <Box key={i}>
+                            <Checkbox />
+                            <Box>
+                                {v.name}
+                                <Typography variant={'caption'}>
+                                    (
+                                    {new Date(v.createdAt).toLocaleString(
+                                        'ko-KR',
+                                    )}
+                                    )
+                                </Typography>
+                            </Box>
+                            <Box>sdfsadfsdafsadfsfsdfdfsdafsad</Box>
+                            <Box>
+                                <Typography variant='body2'>
+                                    {new Date(v.startDate).toLocaleString(
+                                        'ko-KR',
+                                        {
+                                            month: 'long',
+                                            day: '2-digit',
+                                        },
+                                    )}
+                                    ~
+                                    {new Date(v.endDate).toLocaleString(
+                                        'ko-KR',
+                                        {
+                                            month: 'long',
+                                            day: '2-digit',
+                                        },
+                                    )}
+                                </Typography>
+                            </Box>
+                            <Box>총원</Box>
+                            <Box>일정표</Box>
+                            <Box>담당자</Box>
                         </Box>
-                        <Box flex={3}>등록일</Box>
-                        <Box flex={4}>이름</Box>
-                        <Box flex={3}>예약 상태</Box>
-                        <Box flex={2}>기간</Box>
-                        <Box flex={2}>총원</Box>
-                        <Box flex={2}>일정표</Box>
-                        <Box flex={2}>담당자</Box>
-                    </ScheduleHeader>
-                    {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((v, i) => (
-                        <ScheduleRow key={i}>
-                            <Box flex={1}>
-                                <Checkbox size='medium' />
-                            </Box>
-                            <Box flex={3}>
-                                {new Date().toLocaleDateString('ko-KR')}
-                            </Box>
-                            <Box flex={4}>2023년 독도아카데미 352기</Box>
-                            <Box flex={3}>
-                                <Box
-                                    sx={{
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        gap: '0.5rem',
-                                    }}
-                                >
-                                    <Box
-                                        sx={{
-                                            display: 'flex',
-                                            gap: '0.5rem',
-                                            justifyContent: 'center',
-                                        }}
-                                    >
-                                        <Box
-                                            sx={{
-                                                display: 'flex',
-                                                width: '0.3rem',
-                                                height: '0.3rem',
-                                                borderRadius: '50%',
-                                                backgroundColor: 'warning.main',
-                                            }}
-                                        >
-                                            <Typography
-                                                sx={{
-                                                    fontSize: '0.1rem',
-                                                    position: 'absolute',
-                                                }}
-                                            >
-                                                버스
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                    <Box>
-                                        <Typography variant='caption'>
-                                            예약 완료
-                                        </Typography>
-                                    </Box>
-                                </Box>
-                            </Box>
-                            <Box flex={2}>2021-08-01 ~ 2021-08-03</Box>
-                            <Box flex={2}>3</Box>
-                            <Box flex={2}>일정표</Box>
-                            <Box flex={2}>김민수</Box>
-                        </ScheduleRow>
                     ))}
-                </ScheduleColumn>
-            </ScheduelContainer>
+                {tours && tours.length === 0 && (
+                    <Box className='center'>
+                        <Typography variant={'body2'}>
+                            등록 일정이 없습니다.
+                        </Typography>
+                    </Box>
+                )}
+                {
+                    // 공백
+                    Array.from({ length: tours ? 10 - tours.length : 9 }).map(
+                        (v, i) => (
+                            <Box key={i} className='center' />
+                        ),
+                    )
+                }
+            </ListTable>
         </Box>
     );
 };
