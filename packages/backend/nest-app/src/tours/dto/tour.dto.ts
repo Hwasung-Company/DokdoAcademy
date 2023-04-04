@@ -1,4 +1,5 @@
 import {
+    Field,
     InputType,
     IntersectionType,
     PartialType,
@@ -14,4 +15,7 @@ export class CreateTourInput extends IntersectionType(
 ) {}
 
 @InputType()
-export class DeleteTourInput extends PickType(Tour, ['_id']) {}
+export class DeleteTourInput {
+    @Field(() => [String])
+    _id: string[];
+}

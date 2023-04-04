@@ -22,6 +22,15 @@ export default styled(Box)(({ theme }) => ({
         justifyContent: 'center',
     },
 
+    '&.index': {
+        '& > div >div:first-of-type': {
+            flex: 1,
+        },
+        '& > div > div': {
+            flex: 3,
+        },
+    },
+
     '& > div': {
         display: 'flex',
         position: 'relative',

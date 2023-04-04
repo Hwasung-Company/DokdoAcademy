@@ -6,7 +6,7 @@ import {
     UserRoleGuard,
     UserRoles,
 } from 'src/common/decorators/user-role.decorator';
-import { CreateTourInput } from './dto/tour.dto';
+import { CreateTourInput, DeleteTourInput } from './dto/tour.dto';
 import { Tour } from './entities/tours.entity';
 import { ToursService } from './tours.service';
 
@@ -22,13 +22,18 @@ export class ToursResolver {
         return await this.toursService.findBySection(section_id);
     }
 
+    @Query(() => Tour)
+    async tourById(@Args('_id') _id: string) {
+        return await this.toursService.findById(_id);
+    }
+
     @Mutation(() => Boolean)
     async createTour(@Args('input') input: CreateTourInput) {
         return await this.toursService.create(input);
     }
 
     @Mutation(() => Boolean)
-    async deleteTour(@Args('_id') _id: string) {
-        return await this.toursService.delete(_id);
+    async deleteTour(@Args('_id') _id: DeleteTourInput) {
+        return await this.toursService.delete(_id._id);
     }
 }

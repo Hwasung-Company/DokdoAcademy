@@ -71,7 +71,7 @@ function Header() {
                 />
                 <Box sx={{ ml: '1rem' }}>
                     <Button
-                        onClick={() => router.push('/admin/Dashboard')}
+                        onClick={() => router.push('/admin')}
                         color={
                             theme.palette.mode === 'dark'
                                 ? 'primary'

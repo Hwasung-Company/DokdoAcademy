@@ -11,6 +11,26 @@ export default function CSVButton({
     return (
         <CSVReader
             onUploadAccepted={(results: any) => {
+                // 공백 제거
+                results.data = results.data.map((row: any) => {
+                    return row.map((cell: any) => cell.trim());
+                });
+
+                // 빈 행 제거
+                results.data = results.data.filter((row: any) => {
+                    return row[0] !== '';
+                });
+
+                // ' 제거
+                results.data = results.data.map((row: any) => {
+                    return row.map((cell: any) => cell.replace(/'/g, ''));
+                });
+
+                // - 제거
+                results.data = results.data.map((row: any) => {
+                    return row.map((cell: any) => cell.replace(/-/g, ''));
+                });
+
                 dataParser(results.data);
             }}
         >

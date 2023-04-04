@@ -14,7 +14,7 @@ import SectionsModal from '../Modals/SectionsModal';
 import CreateTour from '../Modals/CreateTour';
 
 const Schedules = dynamic(
-    () => import('./Schedules').then((mod) => mod.Schedules),
+    () => import('./Tours').then((mod) => mod.Schedules),
     { ssr: false },
 );
 

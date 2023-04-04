@@ -7,9 +7,14 @@ import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
 import { alpha, styled } from '@mui/system';
 import { Section } from 'nest-app/src/sections/entities/sections.entity';
 import { Tour } from 'nest-app/src/tours/entities/tours.entity';
-import { getToursBySection } from 'next-app/src/api/tours/tours';
+import {
+    deleteTourMutation,
+    getToursBySection,
+} from 'next-app/src/api/tours/tours';
 import { useEffect, useState } from 'react';
 import ListTable from '../../atoms/layout/table/ListTable';
+import { useSnack } from 'next-app/src/context/SnackContext';
+import { useRouter } from 'next/router';
 
 type SchedulesProps = {
     section?: Section;
@@ -17,8 +22,26 @@ type SchedulesProps = {
 
 export const Schedules = ({ section }: SchedulesProps) => {
     const [tours, setTours] = useState<any[]>([]);
+    const [checkTours, setCheckTours] = useState<any[]>([]);
 
     const { data, loading, error, query } = getToursBySection();
+
+    const { deleteTour } = deleteTourMutation();
+
+    const router = useRouter();
+
+    const snackOpen = useSnack();
+
+    const handleDeleteTour = () => {
+        deleteTour({ variables: { input: { _id: checkTours } } }).then(() => {
+            snackOpen('일정이 삭제되었습니다.', 'success');
+            setCheckTours([]);
+        });
+    };
+
+    useEffect(() => {
+        console.log(checkTours);
+    }, [checkTours]);
 
     useEffect(() => {
         section &&
@@ -35,6 +58,14 @@ export const Schedules = ({ section }: SchedulesProps) => {
             setTours(data.toursBySection);
         }
     }, [data]);
+
+    const handleAllCheck = (e: any) => {
+        if (e.target.checked) {
+            setCheckTours(tours.map((tour) => tour._id));
+        } else {
+            setCheckTours([]);
+        }
+    };
 
     return (
         <Box>
@@ -93,10 +124,29 @@ export const Schedules = ({ section }: SchedulesProps) => {
                         />
                     </Box>
                 </Box>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: '0.5rem',
+                        width: '100%',
+                        justifyContent: 'flex-end',
+                    }}
+                >
+                    {/* <Button variant={'contained'}>일정표 다운로드</Button> */}
+                    <Button
+                        variant='contained'
+                        color='error'
+                        size='small'
+                        disabled={checkTours.length === 0}
+                        onClick={handleDeleteTour}
+                    >
+                        삭제
+                    </Button>
+                </Box>
             </FilterContainer>
             <ListTable>
                 <Box>
-                    <Checkbox />
+                    <Checkbox onChange={handleAllCheck} disabled />
                     <Box>
                         이름
                         <Typography variant={'caption'}>(등록일)</Typography>
@@ -111,9 +161,32 @@ export const Schedules = ({ section }: SchedulesProps) => {
                 {tours &&
                     tours.map((v, i) => (
                         <Box key={i}>
-                            <Checkbox />
+                            <Checkbox
+                                checked={
+                                    checkTours.includes(v._id) ? true : false
+                                }
+                                onChange={(e) => {
+                                    if (e.target.checked) {
+                                        setCheckTours([...checkTours, v._id]);
+                                    } else {
+                                        setCheckTours(
+                                            checkTours.filter(
+                                                (v2) => v2 !== v._id,
+                                            ),
+                                        );
+                                    }
+                                }}
+                            />
                             <Box>
-                                {v.name}
+                                <Button
+                                    onClick={() =>
+                                        router.push(
+                                            router.pathname + `/tours/${v._id}`,
+                                        )
+                                    }
+                                >
+                                    {v.name}
+                                </Button>
                                 <Typography variant={'caption'}>
                                     (
                                     {new Date(v.createdAt).toLocaleString(
@@ -122,7 +195,7 @@ export const Schedules = ({ section }: SchedulesProps) => {
                                     )
                                 </Typography>
                             </Box>
-                            <Box>sdfsadfsdafsadfsfsdfdfsdafsad</Box>
+                            <Box>예약</Box>
                             <Box>
                                 <Typography variant='body2'>
                                     {new Date(v.startDate).toLocaleString(
@@ -172,7 +245,7 @@ const FilterContainer = styled(Box)({
     flexDirection: 'column',
     alignItems: 'start',
     position: 'relative',
-    height: '5rem',
+    // height: '5rem',
     margin: '1rem 0',
     gap: '0.5rem',
 });

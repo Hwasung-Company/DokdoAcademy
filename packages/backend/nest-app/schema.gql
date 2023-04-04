@@ -156,6 +156,7 @@ type Query {
   getBusCompanies: [Bus!]!
   sections: [Section!]!
   toursBySection(section_id: String!): [Tour!]!
+  tourById(_id: String!): Tour!
 }
 
 input GetBusCompaniesInput {
@@ -198,7 +199,7 @@ type Mutation {
   createSection(input: CreateSectionInput!): Section!
   deleteSection(_id: String!): Boolean!
   createTour(input: CreateTourInput!): Boolean!
-  deleteTour(_id: String!): Boolean!
+  deleteTour(_id: DeleteTourInput!): Boolean!
 }
 
 input CreateAccountInput {
@@ -251,4 +252,8 @@ input CreateTourInput {
   gatheringPlace: String
   section: SectionInput
   section_id: String
+}
+
+input DeleteTourInput {
+  _id: [String!]!
 }

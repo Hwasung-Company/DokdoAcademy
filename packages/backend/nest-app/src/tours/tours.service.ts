@@ -14,6 +14,19 @@ export class ToursService {
         private readonly sectionsRepository: Repository<Section>,
     ) {}
 
+    async findBySection(section_id: string) {
+        return await this.toursRepository.find({
+            where: { section_id: section_id },
+        });
+    }
+
+    async findById(_id: string) {
+        return await this.toursRepository.findOne({
+            where: { _id: _id },
+            relations: ['section'],
+        });
+    }
+
     async create(input: CreateTourInput) {
         try {
             const tour = this.toursRepository.create(input);
@@ -31,13 +44,7 @@ export class ToursService {
         }
     }
 
-    async findBySection(section_id: string) {
-        return await this.toursRepository.find({
-            where: { section_id: section_id },
-        });
-    }
-
-    async delete(_id: string) {
+    async delete(_id: string[]) {
         const result = await this.toursRepository.delete(_id);
         return result.affected > 0;
     }

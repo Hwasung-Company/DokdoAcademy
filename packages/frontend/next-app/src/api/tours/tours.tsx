@@ -21,8 +21,28 @@ const GET_TOURS_BY_SECTION = gql`
 `;
 
 const DELETE_TOUR = gql`
-    mutation DeleteTour($input: String!) {
+    mutation DeleteTour($input: DeleteTourInput!) {
         deleteTour(_id: $input)
+    }
+`;
+
+const GET_TOUR_BY_ID = gql`
+    query TourById($input: String!) {
+        tourById(_id: $input) {
+            _id
+            name
+            createdAt
+            startDate
+            endDate
+            description
+            gatheringPlace
+            section {
+                _id
+                name
+                sponsor
+                year
+            }
+        }
     }
 `;
 
@@ -58,5 +78,15 @@ export const deleteTourMutation = () => {
         data,
         loading,
         error,
+    };
+};
+
+export const getTourById = () => {
+    const [query, { data, loading, error }] = useLazyQuery(GET_TOUR_BY_ID);
+    return {
+        data,
+        loading,
+        error,
+        query,
     };
 };
