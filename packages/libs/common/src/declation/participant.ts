@@ -1,8 +1,8 @@
 export class Participant {
     name: string;
     sexuality: string;
-    phone: string;
-    birth: string;
+    contact: string;
+    birth: Date;
     age: number;
     companyGroup: string;
     company: string;
@@ -10,7 +10,7 @@ export class Participant {
     tag: string;
     position: string;
     companyContact: string;
-    discount: string;
+    discount: boolean;
     deposit: string;
     paymentMethod: string;
     managerCompanyGroup: string;
@@ -29,8 +29,14 @@ export class Participant {
         if (input.length === 25) {
             this.name = input[0];
             this.sexuality = input[1];
-            this.phone = input[2];
-            this.birth = input[3];
+            this.contact = input[2];
+            this.birth = this.birth = new Date(
+                input[3].substring(0, 4) +
+                    '-' +
+                    input[3].substring(4, 6) +
+                    '-' +
+                    input[3].substring(6, 8),
+            );
             this.age = +input[4];
             this.companyGroup = input[5];
             this.company = input[6];
@@ -38,7 +44,7 @@ export class Participant {
             this.tag = input[8];
             this.position = input[9];
             this.companyContact = input[10];
-            this.discount = input[11];
+            this.discount = input[11].includes('미적용') ? false : true;
             this.deposit = input[12];
             this.paymentMethod = input[13];
             this.managerCompanyGroup = input[14];
@@ -55,11 +61,14 @@ export class Participant {
         } else {
             this.name = input[0];
             this.sexuality = input[1];
-            this.phone = input[2];
-            this.birth =
-                (input[3] as string).length === 8
-                    ? input[3]
-                    : input[3].substring(0, 8);
+            this.contact = input[2];
+            this.birth = this.birth = new Date(
+                input[3].substring(0, 4) +
+                    '-' +
+                    input[3].substring(4, 6) +
+                    '-' +
+                    input[3].substring(6, 8),
+            );
 
             this.age = new Date().getFullYear() - +input[3].substring(0, 4) + 1;
             this.companyGroup = input[4];
@@ -68,7 +77,7 @@ export class Participant {
             this.tag = '';
             this.position = input[7];
             this.companyContact = input[8];
-            this.discount = input[9];
+            this.discount = input[9].includes('미적용') ? false : true;
             this.deposit = '';
             this.paymentMethod = input[11];
             this.managerCompanyGroup = input[12];

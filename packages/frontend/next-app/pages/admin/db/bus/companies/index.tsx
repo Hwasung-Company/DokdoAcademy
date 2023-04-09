@@ -407,13 +407,13 @@ function BusCompanies() {
                                     onClick={() => {
                                         if (
                                             page >
-                                            query?.data?.busCompanies
-                                                ?.totalPage! -
+                                            (query?.data?.busCompanies
+                                                ?.totalPage as any) -
                                                 1
                                         ) {
                                             setPage(
                                                 query?.data?.busCompanies
-                                                    ?.totalPage!,
+                                                    ?.totalPage as any,
                                             );
                                         } else {
                                             setPage(page + 1);

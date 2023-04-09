@@ -8,10 +8,23 @@ export default styled(Box)(({ theme }) => ({
     border: '1px solid #e0e0e0',
     overflowY: 'scroll',
     backgroundColor: theme.palette.background.paper,
+    position: 'relative',
 
     '& > div:first-of-type': {
         backgroundColor: alpha(theme.palette.primary.main, 0.1),
         fontWeight: 'bold',
+        position: 'sticky',
+        top: 0,
+        zIndex: 1,
+        '& > div.bg': {
+            backgroundColor: theme.palette.grey[200],
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: -1,
+        },
     },
 
     '& > div.canceled': {
@@ -32,6 +45,7 @@ export default styled(Box)(({ theme }) => ({
     },
 
     '& > div': {
+        zIndex: 0,
         display: 'flex',
         position: 'relative',
         width: '100%',

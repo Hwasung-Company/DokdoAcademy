@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { useCSVReader } from 'react-papaparse';
+import FlexFull from '../atoms/layout/FlexFull';
 
 export default function CSVButton({
     dataParser,
@@ -36,17 +37,34 @@ export default function CSVButton({
         >
             {({ getRootProps, acceptedFile, getRemoveFileProps }: any) => (
                 <>
-                    <Box>
+                    <FlexFull
+                        sx={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        }}
+                    >
                         <Button {...getRootProps()} variant={'contained'}>
                             CSV 파일 업로드
                         </Button>
-                        <Typography variant='caption'>
+                        <Typography
+                            variant='body1'
+                            sx={{
+                                flexGrow: 1,
+                                ml: '1rem',
+                            }}
+                        >
                             {acceptedFile && acceptedFile.name}
                         </Typography>
-                        <Button variant='contained' {...getRemoveFileProps()}>
-                            Remove
-                        </Button>
-                    </Box>
+                        {acceptedFile && (
+                            <Button
+                                variant='contained'
+                                {...getRemoveFileProps()}
+                            >
+                                삭제
+                            </Button>
+                        )}
+                    </FlexFull>
                 </>
             )}
         </CSVReader>

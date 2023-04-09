@@ -1,10 +1,11 @@
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, InputType, ObjectType } from '@nestjs/graphql';
 import { CoreEntity } from 'src/common/entities/core.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { Participant } from './paricipants.entity';
 
 @Entity()
-@ObjectType()
+@InputType({ isAbstract: true })
+@ObjectType('Groups')
 export class Group extends CoreEntity {
     @Field((type) => String)
     @Column()

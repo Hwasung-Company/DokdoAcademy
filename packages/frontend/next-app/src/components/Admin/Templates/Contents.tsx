@@ -14,6 +14,7 @@ export function Contents({
             sx={{
                 display: 'flex',
                 flexDirection: 'column',
+                overflowY: 'scroll',
             }}
             {...props}
         >

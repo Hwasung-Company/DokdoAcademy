@@ -66,23 +66,23 @@ export function LoginContextProvider({
                 'hs-academy-auth-token',
                 data.login.access_token,
             );
-
+            console.log(data);
             setIsLogin(true);
 
             openSnack('로그인 성공', 'success');
-            getUser();
+            getUser().then(() => {
+                data.login.role === 'ADMIN' && router.push('/admin');
+                openSnack('관리자로 로그인 되었습니다.', 'success');
+            });
         }
     }, [data]);
 
     useEffect(() => {
-        if (userData?.user && isLogin) {
+        if (localStorage.getItem('hs-academy-auth-token') && !isLogin) {
             setIsLogin(true);
-            if (userData.user.role === 'ADMIN') {
-                router.push('/admin');
-                openSnack('관리자로 로그인 되었습니다.', 'success');
-            }
+            return;
         }
-    }, [userLoading, called, isLogin]);
+    }, [userLoading, called]);
 
     useEffect(() => {
         if (localStorage.getItem('hs-academy-auth-token')) {

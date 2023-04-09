@@ -97,37 +97,69 @@ type CreateBusOutput {
   message: String
 }
 
-type Participant {
+type Groups {
   _id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
-  sexuality: Sexuality!
+  participants: [Participants!]!
+}
+
+type Participants {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  sexuality: String!
   contact: String!
   birth: DateTime!
+  age: Float!
   tag: String!
   discount: Boolean!
-  deposit: Float!
+  deposit: String!
   roomMateTarget: String!
   department: String!
   position: String!
   company: String!
   companyGroup: String!
   companyContact: String!
-  group: Group!
+  paymentMethod: String!
+  managerCompanyGroup: String!
+  managerCompany: String!
+  managerDepartment: String!
+  managerName: String!
+  managerContact: String!
+  refundMethod: String!
+  refundBank: String!
+  refundAccount: String!
+  refundName: String!
+  etc: String!
+  group: Groups!
+  tour: Tour!
 }
 
-enum Sexuality {
-  MALE
-  FEMALE
-}
-
-type Group {
+type Tour {
   _id: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   name: String!
-  participants: [Participant!]!
+  startDate: DateTime!
+  endDate: DateTime!
+  description: String
+  gatheringPlace: String!
+  section: Section!
+  section_id: String!
+  participants: [Participants!]!
+}
+
+type Section {
+  _id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  sponsor: String
+  year: Float!
+  tours: [Tour!]
 }
 
 input TourInput {
@@ -138,6 +170,42 @@ input TourInput {
   gatheringPlace: String!
   section: SectionInput!
   section_id: String!
+  participants: [Participant!]!
+}
+
+input Participant {
+  name: String!
+  sexuality: String!
+  contact: String!
+  birth: DateTime!
+  age: Float!
+  tag: String!
+  discount: Boolean!
+  deposit: String!
+  roomMateTarget: String!
+  department: String!
+  position: String!
+  company: String!
+  companyGroup: String!
+  companyContact: String!
+  paymentMethod: String!
+  managerCompanyGroup: String!
+  managerCompany: String!
+  managerDepartment: String!
+  managerName: String!
+  managerContact: String!
+  refundMethod: String!
+  refundBank: String!
+  refundAccount: String!
+  refundName: String!
+  etc: String!
+  group: Group!
+  tour: TourInput!
+}
+
+input Group {
+  name: String!
+  participants: [Participant!]!
 }
 
 input SectionInput {
@@ -157,6 +225,7 @@ type Query {
   sections: [Section!]!
   toursBySection(section_id: String!): [Tour!]!
   tourById(_id: String!): Tour!
+  getParticipants(tour_id: String!): [Participants!]!
 }
 
 input GetBusCompaniesInput {
@@ -165,29 +234,6 @@ input GetBusCompaniesInput {
 
 input SearchBusCompaniesInput {
   name: String!
-}
-
-type Section {
-  _id: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  sponsor: String
-  year: Float!
-  tours: [Tour!]
-}
-
-type Tour {
-  _id: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
-  name: String!
-  startDate: DateTime!
-  endDate: DateTime!
-  description: String
-  gatheringPlace: String!
-  section: Section!
-  section_id: String!
 }
 
 type Mutation {
@@ -200,6 +246,8 @@ type Mutation {
   deleteSection(_id: String!): Boolean!
   createTour(input: CreateTourInput!): Boolean!
   deleteTour(_id: DeleteTourInput!): Boolean!
+  createParticipants(input: CreateParticipantsInput!): Boolean!
+  deleteParticipants(tour_id: String!): Boolean!
 }
 
 input CreateAccountInput {
@@ -252,8 +300,42 @@ input CreateTourInput {
   gatheringPlace: String
   section: SectionInput
   section_id: String
+  participants: [Participant!]
 }
 
 input DeleteTourInput {
   _id: [String!]!
+}
+
+input CreateParticipantsInput {
+  tour_id: String!
+  participants: [OmitParticipant!]!
+}
+
+input OmitParticipant {
+  name: String!
+  sexuality: String!
+  contact: String!
+  birth: DateTime!
+  age: Float!
+  tag: String!
+  discount: Boolean!
+  deposit: String!
+  roomMateTarget: String!
+  department: String!
+  position: String!
+  company: String!
+  companyGroup: String!
+  companyContact: String!
+  paymentMethod: String!
+  managerCompanyGroup: String!
+  managerCompany: String!
+  managerDepartment: String!
+  managerName: String!
+  managerContact: String!
+  refundMethod: String!
+  refundBank: String!
+  refundAccount: String!
+  refundName: String!
+  etc: String!
 }
