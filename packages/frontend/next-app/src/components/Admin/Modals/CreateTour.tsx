@@ -1,11 +1,11 @@
 import { Box, Button, TextField, Typography } from '@mui/material';
-import MContainer from '../../atoms/modal/layout/MContainer';
-import { Section } from 'nest-app/src/sections/entities/sections.entity';
-import FlexFull from '../../atoms/layout/FlexFull';
-import { useMemo, useState } from 'react';
+import { Section } from 'nest-app/sections/entities/sections.entity';
 import { createTourMutation } from 'next-app/src/api/tours/tours';
 import { useModal } from 'next-app/src/context/ModalContext';
 import { useSnack } from 'next-app/src/context/SnackContext';
+import { useMemo, useState } from 'react';
+import FlexFull from '../../atoms/layout/FlexFull';
+import MContainer from '../../atoms/modal/layout/MContainer';
 
 export default function CreateTour({ section }: { section: Section }) {
     const [name, setName] = useState('');

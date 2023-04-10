@@ -21,15 +21,16 @@ import { SchedulesModule } from './schedules/schedules.module';
     imports: [
         ConfigModule.forRoot({
             isGlobal: true,
+            envFilePath: '.env',
         }),
 
         TypeOrmModule.forRoot({
             type: 'postgres',
             host: 'localhost',
             port: 3347,
-            username: 'hwasung',
-            password: 'hs1024',
-            database: 'hs-dokdo',
+            username: process.env.POSTGRES_USER,
+            password: process.env.POSTGRES_PASSWORD,
+            database: process.env.POSTGRES_DB,
             entities: [
                 __dirname + '/**/entities/*.entity{.ts,.js}',
                 __dirname + '/**/entities/**/*.entity{.ts,.js}',

@@ -26,10 +26,10 @@ type ModalContextType = {
 
 export const ModalContext = createContext<ModalContextType>({
     isOpen: false,
-    open: () => {},
-    close: () => {},
+    open: () => null,
+    close: () => null,
     Modal: <></>,
-    setModal: (Component: ReactElement) => {},
+    setModal: (Component: ReactElement) => null,
 });
 
 export function ModalContextProvider({ children }: { children: ReactNode }) {

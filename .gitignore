@@ -29,3 +29,5 @@ yran/*
 ./.yarn
 
 dist
+
+*/**/.env

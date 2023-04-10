@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import GridMain from '@dokdo-academy/component/dist/Layouts/GridMain';
 import { Box, Button, TextField, Typography } from '@mui/material';
 import { useLogin } from 'next-app/src/context/LoginContext';

@@ -1,10 +1,9 @@
-import { CameraAlt, FormatListBulleted, Male } from '@mui/icons-material';
-import { Box, Checkbox, Paper, Typography } from '@mui/material';
+import { CameraAlt, FormatListBulleted } from '@mui/icons-material';
+import { Box, Paper, Typography } from '@mui/material';
 import { useModal } from 'next-app/src/context/ModalContext';
-import ButtonWithIcon from '../atoms/flex/ButtonWithIcon';
-import { MenuSectionItem } from '../Manager/Layout/Menu/MenuSection';
 import HotelReceiptModal from '../Manager/Modal/HotelReceiptModal';
 import HotelRoomListModal from '../Manager/Modal/HotelRoomListModal';
+import ButtonWithIcon from '../atoms/flex/ButtonWithIcon';
 
 export default function HotelCard() {
     const { setModal, openModal, closeModal } = useModal();

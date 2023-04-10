@@ -1,9 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 
-const useMountTransition = (
-    isMounted: boolean,
-    unmountDelay: number = 1000,
-) => {
+const useMountTransition = (isMounted: boolean, unmountDelay = 1000) => {
     const [isUnmounting, setIsUnmounting] = useState(false);
     const animateClass = useMemo(() => {
         return isMounted

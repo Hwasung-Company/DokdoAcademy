@@ -1,6 +1,6 @@
 import { Delete, Done } from '@mui/icons-material';
 import { Box, Button, IconButton, TextField, Typography } from '@mui/material';
-import { Section } from 'nest-app/src/sections/entities/sections.entity';
+import { Section } from 'nest-app/sections/entities/sections.entity';
 import { createSection } from 'next-app/src/api/sections/createSection';
 import { getSection } from 'next-app/src/api/sections/getSection';
 import { useModal } from 'next-app/src/context/ModalContext';

@@ -18,6 +18,8 @@
       "next-app/*": ["./*"],
       "@components/*": ["../../libs/components/dist/*"],
       "@common/*": ["../../libs/common/dist/*"],
+      "nest-app/*": ["../../backend/nest-app/dist/*"],
+      "src/*": ["../../backend/nest-app/dist/*"]
     },
     "experimentalDecorators": true
   },

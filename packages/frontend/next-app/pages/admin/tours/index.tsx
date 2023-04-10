@@ -50,7 +50,7 @@ export default function Tours() {
 
             const newGroup: any[][] = [];
             let index = 0;
-            let count = 0;
+            // let count = 0;
             let groupCount = 0;
             let groupIndex = 0;
             const total = participants.length;

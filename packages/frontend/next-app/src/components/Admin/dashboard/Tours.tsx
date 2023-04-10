@@ -5,19 +5,18 @@ import {
 } from '@mui/icons-material';
 import { Box, Button, Checkbox, TextField, Typography } from '@mui/material';
 import { alpha, styled } from '@mui/system';
-import { Section } from 'nest-app/src/sections/entities/sections.entity';
-import { Tour } from 'nest-app/src/tours/entities/tours.entity';
+
 import {
     deleteTourMutation,
     getToursBySection,
 } from 'next-app/src/api/tours/tours';
-import { useEffect, useState } from 'react';
-import ListTable from '../../atoms/layout/table/ListTable';
 import { useSnack } from 'next-app/src/context/SnackContext';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import ListTable from '../../atoms/layout/table/ListTable';
 
 type SchedulesProps = {
-    section?: Section;
+    section?: any;
 };
 
 export const Schedules = ({ section }: SchedulesProps) => {

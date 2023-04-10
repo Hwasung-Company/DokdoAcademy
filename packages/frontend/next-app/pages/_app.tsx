@@ -1,18 +1,15 @@
-import { AppProps } from 'next/app';
-import { Box, Container, Paper, SpeedDial, Theme } from '@mui/material';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import { ApolloProvider } from '@apollo/client';
-import Template from '@dokdo-academy/component/dist/template/template';
-import { createContext, useEffect, useMemo, useState } from 'react';
-import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { darkThemeMui, lightThemeMui } from '@common/style';
 import { CacheProvider, EmotionCache } from '@emotion/react';
-import client from 'next-app/src/api/client';
+import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { Box, Paper, SpeedDial } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 import createEmotionCache from 'next-app/src/utils/createEmotionCache';
+import { AppProps } from 'next/app';
+import { useEffect, useState } from 'react';
 
-import '../styles/globals.css';
 import ContextProvider from 'next-app/src/context/ContextProvider';
+import '../styles/globals.css';
 
 const clientSideEmotionCache = createEmotionCache();
 
