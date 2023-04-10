@@ -1,0 +1,25 @@
+FROM node:18-alpine AS builder
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+COPY yarn.lock ./
+
+# RUN npm install -g yarn
+RUN yarn install --immutable --immutable-cache --check-cache
+
+COPY ./packages/backend/nest-app/.env ./packages/backend/nest-app/.env
+
+COPY . ./
+RUN yarn install --immutable
+RUN yarn common build
+RUN yarn component build
+RUN yarn nestapp build
+RUN yarn nextapp build
+
+COPY . ./
+
+EXPOSE 3000
+
+CMD [ "node", "backend/nest-app/dist/main.js"]
+ENTRYPOINT ["yarn", "nextapp", "start"]
