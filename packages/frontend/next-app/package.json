@@ -28,10 +28,13 @@
     "eslint": "8.35.0",
     "eslint-config-next": "13.2.3",
     "graphql": "^16.6.0",
-    "next": "13.2.3",
+    "graphql-request": "^5.2.0",
+    "iron-session": "^6.3.1",
+    "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-papaparse": "^4.1.0",
+    "swr": "^2.1.2",
     "typescript": "4.9.5"
   },
   "devDependencies": {

@@ -77,12 +77,12 @@ export function LoginContextProvider({
         }
     }, [data]);
 
-    useEffect(() => {
-        if (localStorage.getItem('hs-academy-auth-token') && !isLogin) {
-            setIsLogin(true);
-            return;
-        }
-    }, [userLoading, called]);
+    // useEffect(() => {
+    //     if (localStorage.getItem('hs-academy-auth-token') && !isLogin) {
+    //         setIsLogin(true);
+    //         return;
+    //     }
+    // }, [userLoading, called]);
 
     useEffect(() => {
         if (localStorage.getItem('hs-academy-auth-token')) {
@@ -92,6 +92,16 @@ export function LoginContextProvider({
             setIsLogin(false);
         }
     }, []);
+
+    useEffect(() => {
+        if (router.pathname === '/' && userData) {
+            if (userData?.user?.role === 'ADMIN') {
+                router.push('/admin');
+            } else {
+                router.push('/manager');
+            }
+        }
+    }, [userData]);
 
     const user = useMemo(() => {
         if (userData?.user) {

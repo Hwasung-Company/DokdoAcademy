@@ -6,6 +6,7 @@ import {
     CreateAccountInput,
     CreateAccountOutput,
 } from 'src/users/dto/create-account.dto';
+import { UserRole } from '@libs/common/dist/entities/users/users.entity';
 
 @Injectable()
 export class UsersService {
@@ -41,6 +42,9 @@ export class UsersService {
                     ok: false,
                     error: '이미 존재하는 계정입니다.',
                 };
+            }
+            if (!role) {
+                role = UserRole.GUIDE;
             }
             await this.users.save(
                 this.users.create({ username, password, role }),

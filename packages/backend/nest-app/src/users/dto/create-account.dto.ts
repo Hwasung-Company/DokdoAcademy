@@ -4,15 +4,17 @@ import { CoreOutput } from 'src/common/dto/core-ouput.dto';
 import { UserRole } from '@common/entities/users/users.entity';
 
 @InputType()
-export class CreateAccountInput implements ICreateAccountInput {
-  @Field(() => String)
-  username: string;
+export class CreateAccountInput {
+    @Field(() => String)
+    username: string;
 
-  @Field(() => String)
-  password: string;
+    @Field(() => String)
+    password: string;
 
-  @Field(() => UserRole)
-  role: UserRole;
+    @Field(() => UserRole, {
+        nullable: true,
+    })
+    role?: UserRole;
 }
 
 @ObjectType()
