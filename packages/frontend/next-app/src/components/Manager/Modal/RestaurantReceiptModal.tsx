@@ -10,6 +10,12 @@ import MenuSection, {
     MenuSectionItemWithIncDec,
     MenuSectionSelection,
 } from '../Layout/Menu/MenuSection';
+import imageToBase64 from 'next-app/src/utils/imageToBase64';
+import {
+    createReceiptMutation,
+    getOneReceiptQuery,
+} from 'next-app/src/api/receipt/receipt';
+import { useTempContext } from 'next-app/src/context/TempContext';
 
 const restaurantList: Restaurant[] = [
     {
@@ -57,11 +63,68 @@ export default function RestaurantReceiptModal({
     const [restaurant, setRestaurant] = useState<Restaurant>(restaurantList[0]);
     const [menu, setMenu] = useState<Menu>(restaurant.menus[0]);
     const [count, setCount] = useState<number>(total);
+    const [image, setImage] = useState<string | null>(null);
+
+    const { createReceipt, data } = createReceiptMutation();
+    const { getOneReceipt, data: getOneReceiptData } = getOneReceiptQuery();
+
+    const { selectGroup } = useTempContext();
 
     useEffect(() => {
         setMenus(restaurant.menus);
         setMenu(menus[0]);
     }, [restaurant]);
+
+    useEffect(() => {
+        if (getOneReceiptData) {
+            setImage(getOneReceiptData.getOneReceipt.image);
+        }
+    }, [getOneReceiptData]);
+
+    useEffect(() => {
+        console.log(image);
+    }, [image]);
+
+    useEffect(() => {
+        getOneReceipt({
+            variables: {
+                input: {
+                    name:
+                        selectGroup.name +
+                        '-' +
+                        restaurantName +
+                        '-' +
+                        menuInfo[0],
+                    item: menuInfo[0],
+                },
+            },
+        });
+    }, []);
+
+    const handleCreateReceipt = () => {
+        if (!image) {
+            alert('영수증 사진을 등록해주세요.');
+            return;
+        }
+        createReceipt({
+            variables: {
+                input: {
+                    name:
+                        selectGroup.name +
+                        '-' +
+                        restaurantName +
+                        '-' +
+                        menuInfo[0],
+                    item: menuInfo[0],
+                    price: menuInfo[1],
+                    count: count,
+                    image: image,
+                    total: total,
+                    date: new Date(),
+                },
+            },
+        });
+    };
 
     return (
         <MContainer>
@@ -135,11 +198,17 @@ export default function RestaurantReceiptModal({
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
                         }}
                     >
-                        <Typography variant='caption'>
-                            사진을 등록해주세요.
-                        </Typography>
+                        {image ? null : (
+                            <Typography variant='caption'>
+                                사진을 등록해주세요.
+                            </Typography>
+                        )}
                     </Box>
                     <Box
                         sx={{
@@ -148,13 +217,30 @@ export default function RestaurantReceiptModal({
                             width: '100%',
                         }}
                     >
-                        <ButtonWithIcon
-                            text='사진 등록'
-                            icon={<CameraAlt />}
-                            onClick={() => {
-                                console.log('사진 등록');
+                        <label htmlFor='receipt-image'>
+                            <ButtonWithIcon
+                                text='사진 등록'
+                                icon={<CameraAlt />}
+                                onClick={() => {
+                                    console.log('사진 등록');
+                                }}
+                                justifyContent='center'
+                            />
+                        </label>
+                        <input
+                            type='file'
+                            accept='image/*'
+                            id='receipt-image'
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    const result = imageToBase64(file);
+                                    result.then((res) => {
+                                        setImage(res);
+                                    });
+                                }
                             }}
-                            justifyContent='center'
+                            style={{ display: 'none' }}
                         />
                     </Box>
                 </Box>
@@ -166,7 +252,11 @@ export default function RestaurantReceiptModal({
                     }}
                 >
                     <Button variant='outlined'>취소</Button>
-                    <Button variant='contained' sx={{ ml: '1rem' }}>
+                    <Button
+                        variant='contained'
+                        sx={{ ml: '1rem' }}
+                        onClick={handleCreateReceipt}
+                    >
                         확인
                     </Button>
                 </Box>

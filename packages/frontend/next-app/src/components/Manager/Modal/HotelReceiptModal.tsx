@@ -11,9 +11,69 @@ import MenuSection, {
     MenuSectionSelection,
 } from '../Layout/Menu/MenuSection';
 import { useModal } from 'next-app/src/context/ModalContext';
+import {
+    createReceiptMutation,
+    getOneReceiptQuery,
+} from 'next-app/src/api/receipt/receipt';
+import { useTempContext } from 'next-app/src/context/TempContext';
+import imageToBase64 from 'next-app/src/utils/imageToBase64';
+import { useSnack } from 'next-app/src/context/SnackContext';
 
 export default function HotelReceiptModal({ roomList, hotel }: any) {
     const { closeModal } = useModal();
+    const [image, setImage] = useState<string | null>(null);
+
+    const { createReceipt, data } = createReceiptMutation();
+    const { getOneReceipt, data: getOneReceiptData } = getOneReceiptQuery();
+    const openSnackBar = useSnack();
+
+    const { selectGroup } = useTempContext();
+
+    useEffect(() => {
+        if (getOneReceiptData) {
+            setImage(getOneReceiptData.getOneReceipt.image);
+        }
+    }, [getOneReceiptData]);
+
+    useEffect(() => {
+        getOneReceipt({
+            variables: {
+                input: {
+                    name: selectGroup.name + '-' + hotel,
+                    item: hotel,
+                },
+            },
+        });
+    }, []);
+
+    const handleCreateReceipt = () => {
+        if (!image) {
+            alert('영수증 사진을 등록해주세요.');
+            return;
+        }
+        createReceipt({
+            variables: {
+                input: {
+                    name: selectGroup.name + '-' + hotel,
+                    item: hotel,
+                    price:
+                        roomList.count.single * 70000 + // 1인실
+                        roomList.count.twin * 140000 + // 2인실
+                        roomList.count.triple * 170000,
+                    count: roomList.count.total,
+                    image: image,
+                    total:
+                        roomList.count.single * 70000 + // 1인실
+                        roomList.count.twin * 140000 + // 2인실
+                        roomList.count.triple * 170000,
+                    date: new Date(),
+                },
+            },
+        }).then(() => {
+            openSnackBar('영수증 등록이 완료되었습니다.', 'success');
+            closeModal();
+        });
+    };
     return (
         <MContainer>
             <Title text='숙박 영수증 등록' />
@@ -69,11 +129,17 @@ export default function HotelReceiptModal({ roomList, hotel }: any) {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
                         }}
                     >
-                        <Typography variant='caption'>
-                            사진을 등록해주세요.
-                        </Typography>
+                        {image ? null : (
+                            <Typography variant='caption'>
+                                사진을 등록해주세요.
+                            </Typography>
+                        )}
                     </Box>
                     <Box
                         sx={{
@@ -82,13 +148,30 @@ export default function HotelReceiptModal({ roomList, hotel }: any) {
                             width: '100%',
                         }}
                     >
-                        <ButtonWithIcon
-                            text='사진 등록'
-                            icon={<CameraAlt />}
-                            onClick={() => {
-                                console.log('사진 등록');
+                        <label htmlFor='receipt-image'>
+                            <ButtonWithIcon
+                                text='사진 등록'
+                                icon={<CameraAlt />}
+                                onClick={() => {
+                                    console.log('사진 등록');
+                                }}
+                                justifyContent='center'
+                            />
+                        </label>
+                        <input
+                            type='file'
+                            accept='image/*'
+                            id='receipt-image'
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    const result = imageToBase64(file);
+                                    result.then((res) => {
+                                        setImage(res);
+                                    });
+                                }
                             }}
-                            justifyContent='center'
+                            style={{ display: 'none' }}
                         />
                     </Box>
                 </Box>
@@ -102,7 +185,11 @@ export default function HotelReceiptModal({ roomList, hotel }: any) {
                     <Button variant='outlined' onClick={closeModal}>
                         취소
                     </Button>
-                    <Button variant='contained' sx={{ ml: '1rem' }}>
+                    <Button
+                        variant='contained'
+                        sx={{ ml: '1rem' }}
+                        onClick={handleCreateReceipt}
+                    >
                         확인
                     </Button>
                 </Box>

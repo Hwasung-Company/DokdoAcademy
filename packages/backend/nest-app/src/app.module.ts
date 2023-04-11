@@ -16,6 +16,7 @@ import { SectionsModule } from './sections/sections.module';
 import { ToursModule } from './tours/tours.module';
 import { UsersModule } from './users/users.module';
 import { SchedulesModule } from './schedules/schedules.module';
+import { TempModule } from './temp/temp.module';
 
 @Module({
     imports: [
@@ -48,6 +49,7 @@ import { SchedulesModule } from './schedules/schedules.module';
         SectionsModule,
         ToursModule,
         SchedulesModule,
+        TempModule,
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -162,6 +162,17 @@ type Section {
   tours: [Tour!]
 }
 
+type Receipts {
+  _id: String!
+  name: String!
+  item: String!
+  price: Float!
+  count: Float!
+  total: Float!
+  date: DateTime!
+  image: String!
+}
+
 input TourInput {
   name: String!
   startDate: DateTime!
@@ -226,6 +237,8 @@ type Query {
   toursBySection(section_id: String!): [Tour!]!
   tourById(_id: String!): Tour!
   getParticipants(tour_id: String!): [Participants!]!
+  getAllReceipts: [Receipts!]!
+  getOneReceipt(input: GetReceiptInput!): Receipts!
 }
 
 input GetBusCompaniesInput {
@@ -234,6 +247,11 @@ input GetBusCompaniesInput {
 
 input SearchBusCompaniesInput {
   name: String!
+}
+
+input GetReceiptInput {
+  name: String!
+  item: String!
 }
 
 type Mutation {
@@ -248,6 +266,7 @@ type Mutation {
   deleteTour(_id: DeleteTourInput!): Boolean!
   createParticipants(input: CreateParticipantsInput!): Boolean!
   deleteParticipants(tour_id: String!): Boolean!
+  createReceipt(input: CreateReceiptInput!): Boolean!
 }
 
 input CreateAccountInput {
@@ -338,4 +357,14 @@ input OmitParticipant {
   refundAccount: String!
   refundName: String!
   etc: String!
+}
+
+input CreateReceiptInput {
+  name: String!
+  item: String!
+  price: Float!
+  count: Float!
+  total: Float!
+  date: DateTime!
+  image: String!
 }

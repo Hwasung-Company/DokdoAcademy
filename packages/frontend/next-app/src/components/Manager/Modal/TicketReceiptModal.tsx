@@ -10,6 +10,14 @@ import MenuSection, {
     MenuSectionItemWithIncDec,
     MenuSectionSelection,
 } from '../Layout/Menu/MenuSection';
+import { useModal } from 'next-app/src/context/ModalContext';
+import {
+    createReceiptMutation,
+    getOneReceiptQuery,
+} from 'next-app/src/api/receipt/receipt';
+import { useSnack } from 'next-app/src/context/SnackContext';
+import { useTempContext } from 'next-app/src/context/TempContext';
+import imageToBase64 from 'next-app/src/utils/imageToBase64';
 
 export default function TicketReceiptModal({ name, price, count }: any) {
     const [total, setTotal] = useState<number>(price * count);
@@ -18,6 +26,56 @@ export default function TicketReceiptModal({ name, price, count }: any) {
     useEffect(() => {
         setTotal(price * countState);
     }, [countState]);
+
+    const { closeModal } = useModal();
+
+    const [image, setImage] = useState<string | null>(null);
+
+    const { createReceipt, data } = createReceiptMutation();
+    const { getOneReceipt, data: getOneReceiptData } = getOneReceiptQuery();
+    const openSnackBar = useSnack();
+
+    const { selectGroup } = useTempContext();
+
+    useEffect(() => {
+        if (getOneReceiptData) {
+            setImage(getOneReceiptData.getOneReceipt.image);
+        }
+    }, [getOneReceiptData]);
+
+    useEffect(() => {
+        getOneReceipt({
+            variables: {
+                input: {
+                    name: selectGroup.name + '-' + name,
+                    item: name,
+                },
+            },
+        });
+    }, []);
+
+    const handleCreateReceipt = () => {
+        if (!image) {
+            alert('영수증 사진을 등록해주세요.');
+            return;
+        }
+        createReceipt({
+            variables: {
+                input: {
+                    name: selectGroup.name + '-' + name,
+                    item: name,
+                    price: price,
+                    count: count,
+                    image: image,
+                    total: price * count,
+                    date: new Date(),
+                },
+            },
+        }).then(() => {
+            openSnackBar('영수증 등록이 완료되었습니다.', 'success');
+            closeModal();
+        });
+    };
 
     return (
         <MContainer>
@@ -68,11 +126,17 @@ export default function TicketReceiptModal({ name, price, count }: any) {
                             display: 'flex',
                             justifyContent: 'center',
                             alignItems: 'center',
+                            backgroundImage: `url(${image})`,
+                            backgroundSize: 'contain',
+                            backgroundRepeat: 'no-repeat',
+                            backgroundPosition: 'center',
                         }}
                     >
-                        <Typography variant='caption'>
-                            사진을 등록해주세요.
-                        </Typography>
+                        {image ? null : (
+                            <Typography variant='caption'>
+                                사진을 등록해주세요.
+                            </Typography>
+                        )}
                     </Box>
                     <Box
                         sx={{
@@ -81,13 +145,30 @@ export default function TicketReceiptModal({ name, price, count }: any) {
                             width: '100%',
                         }}
                     >
-                        <ButtonWithIcon
-                            text='사진 등록'
-                            icon={<CameraAlt />}
-                            onClick={() => {
-                                console.log('사진 등록');
+                        <label htmlFor='receipt-image'>
+                            <ButtonWithIcon
+                                text='사진 등록'
+                                icon={<CameraAlt />}
+                                onClick={() => {
+                                    console.log('사진 등록');
+                                }}
+                                justifyContent='center'
+                            />
+                        </label>
+                        <input
+                            type='file'
+                            accept='image/*'
+                            id='receipt-image'
+                            onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) {
+                                    const result = imageToBase64(file);
+                                    result.then((res) => {
+                                        setImage(res);
+                                    });
+                                }
                             }}
-                            justifyContent='center'
+                            style={{ display: 'none' }}
                         />
                     </Box>
                 </Box>
@@ -98,8 +179,19 @@ export default function TicketReceiptModal({ name, price, count }: any) {
                         mt: '1rem',
                     }}
                 >
-                    <Button variant='outlined'>취소</Button>
-                    <Button variant='contained' sx={{ ml: '1rem' }}>
+                    <Button
+                        variant='outlined'
+                        onClick={() => {
+                            closeModal();
+                        }}
+                    >
+                        취소
+                    </Button>
+                    <Button
+                        variant='contained'
+                        sx={{ ml: '1rem' }}
+                        onClick={handleCreateReceipt}
+                    >
                         확인
                     </Button>
                 </Box>
