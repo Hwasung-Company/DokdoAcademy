@@ -64,10 +64,12 @@ export function MenuSectionItemGrid({
     children,
     title,
     button,
+    height,
 }: {
     children: React.ReactNode;
     title?: string;
     button?: React.ReactNode;
+    height?: string;
 }) {
     return (
         <Box
@@ -76,24 +78,29 @@ export function MenuSectionItemGrid({
                 position: 'relative',
                 gridTemplateColumns: 'repeat(2, 1fr)',
                 gap: '1rem',
-                marginTop: title ? '1.5rem' : '0',
+                // paddingTop: title ? '1.5rem' : '0',
+                maxHeight: height ? height : 'default',
+                overflowY: height ? 'scroll' : 'auto',
+                width: '100%',
             }}
         >
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: '-2rem',
-                    left: '0',
-                    display: 'flex',
-                    width: '100%',
-                    justifyContent: 'space-between',
-                }}
-            >
-                <Typography variant='subtitle2' fontWeight={700}>
-                    {title}
-                </Typography>
-                {button}
-            </Box>
+            {(title || button) && (
+                <Box
+                    sx={{
+                        // position: 'absolute',
+                        // top: '-2rem',
+                        // left: '0',
+                        display: 'flex',
+                        width: '100%',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Typography variant='subtitle2' fontWeight={700}>
+                        {title}
+                    </Typography>
+                    {button}
+                </Box>
+            )}
             {children}
         </Box>
     );

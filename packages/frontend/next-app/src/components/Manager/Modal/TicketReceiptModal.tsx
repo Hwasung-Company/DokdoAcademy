@@ -11,28 +11,40 @@ import MenuSection, {
     MenuSectionSelection,
 } from '../Layout/Menu/MenuSection';
 
-export default function TicketReceiptModal() {
+export default function TicketReceiptModal({ name, price, count }: any) {
+    const [total, setTotal] = useState<number>(price * count);
+    const [countState, setCountState] = useState<number>(count);
+
+    useEffect(() => {
+        setTotal(price * countState);
+    }, [countState]);
+
     return (
         <MContainer>
             <Title text='영수증 등록' />
             <Box sx={{ mt: '1rem' }}>
                 <MenuSectionItemGrid>
-                    <MenuSectionItem title='관광지' text='모노레일' />
+                    <MenuSectionItem title='관광지' text={name} />
                     <MenuSectionItemWithIncDec
                         title='인원'
-                        value={0}
+                        value={countState}
                         inc={() => {
-                            /** */
+                            setCountState(countState + 1);
                         }}
                         dec={() => {
-                            /** */
+                            setCountState(countState - 1);
                         }}
                     />
-                    <MenuSectionItem title='금액' text='3,000원' />
+                    <MenuSectionItem
+                        title='금액'
+                        text={price.toLocaleString() + '원'}
+                    />
                     <MenuSectionItem
                         title='총 결제금액'
-                        text='590,000원'
-                        subText='3,000 x 23'
+                        text={total.toLocaleString() + '원'}
+                        subText={
+                            price.toLocaleString() + '원 x ' + countState + '명'
+                        }
                     />
                 </MenuSectionItemGrid>
                 <MenuSectionItemGrid title='결제 영수증 등록'>

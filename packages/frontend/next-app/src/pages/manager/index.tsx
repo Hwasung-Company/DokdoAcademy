@@ -1,5 +1,6 @@
 import dynamic from 'next/dynamic';
 import LeftNavTemplate from 'next-app/src/components/Manager/Layout/LeftNavTemplate';
+import FlexFull from 'next-app/src/components/atoms/layout/FlexFull';
 
 // const LeftNavTemplate = dynamic(
 //     () => import('next-app/src/components/Manager/Layout/LeftNavTemplate'),
@@ -19,14 +20,14 @@ const Schedule = dynamic(
 
 const Menu = dynamic(
     () => import('next-app/src/components/Manager/Menu/Menu'),
-    { ssr: false },
+    { ssr: true },
 );
 
 export default function ManagerHome() {
     return (
-        <LeftNavTemplate>
-            <Schedule />
+        <FlexFull>
+            {/* <Schedule /> */}
             <Menu />
-        </LeftNavTemplate>
+        </FlexFull>
     );
 }

@@ -3,9 +3,13 @@ import { alpha, Box, Paper, Typography } from '@mui/material';
 import { useModal } from 'next-app/src/context/ModalContext';
 import { useEffect } from 'react';
 import SelectBus from '../Modal/SelectBus';
+import { useTempContext } from 'next-app/src/context/TempContext';
+import { useRouter } from 'next/router';
 
 export default function TourInformation() {
     const { openModal, closeModal, setModal } = useModal();
+    const { selectGroup } = useTempContext();
+    const router = useRouter();
 
     const handleModal = () => {
         setModal(<SelectBus />);
@@ -57,9 +61,12 @@ export default function TourInformation() {
                             alignItems: 'center',
                             justifyContent: 'center',
                         }}
+                        onClick={() => {
+                            router.push('/manager');
+                        }}
                     >
                         <Typography variant='h5' fontWeight={700}>
-                            352기
+                            354기
                         </Typography>
                     </Box>
                     <Box
@@ -94,10 +101,10 @@ export default function TourInformation() {
                                 }}
                             >
                                 <Typography variant='caption'>
-                                    2023년 3월 29일
+                                    2023년 4월 12일
                                 </Typography>
                                 <Typography variant='caption'>
-                                    2023년 3월 31일
+                                    2023년 4월 14일
                                 </Typography>
                             </Box>
                             <Box
@@ -151,10 +158,10 @@ export default function TourInformation() {
                             }}
                         >
                             <Typography variant='body1'>
-                                두레고속관광
+                                {selectGroup.busCompany}
                             </Typography>
                             <Typography variant='body2' whiteSpace={'nowrap'}>
-                                경북 12바 1234
+                                {selectGroup.busNumber}
                             </Typography>
                         </Box>
                         <Box
@@ -166,10 +173,10 @@ export default function TourInformation() {
                             }}
                         >
                             <Typography variant='body1' fontWeight={700}>
-                                이재원
+                                {selectGroup.busDriverName}
                             </Typography>
                             <Typography variant='body1' whiteSpace={'nowrap'}>
-                                010-1234-1234
+                                {selectGroup.busDriverContact}
                             </Typography>
                         </Box>
                     </Box>
@@ -193,10 +200,10 @@ export default function TourInformation() {
                     }}
                 >
                     <Typography variant='h4' fontWeight={700}>
-                        1호차
+                        {selectGroup.name}
                     </Typography>
                     <Typography variant='h5' fontWeight={700}>
-                        32명
+                        {selectGroup.participantsCount}명
                     </Typography>
                 </Box>
             </Box>

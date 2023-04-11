@@ -5,16 +5,16 @@ import HotelReceiptModal from '../Manager/Modal/HotelReceiptModal';
 import HotelRoomListModal from '../Manager/Modal/HotelRoomListModal';
 import ButtonWithIcon from '../atoms/flex/ButtonWithIcon';
 
-export default function HotelCard() {
+export default function HotelCard({ hotel, roomList }: any) {
     const { setModal, openModal, closeModal } = useModal();
 
     const handleReceiptModal = () => {
-        setModal(<HotelReceiptModal />);
+        setModal(<HotelReceiptModal roomList={roomList} hotel={hotel} />);
         openModal();
     };
 
     const handleRoomListModal = () => {
-        setModal(<HotelRoomListModal />);
+        setModal(<HotelRoomListModal roomList={roomList} />);
         openModal();
     };
 
@@ -38,9 +38,12 @@ export default function HotelCard() {
                     justifyContent: 'space-between',
                 }}
             >
-                <Item title='숙소명' text='이사부호텔' />
-                <Item title='숙박인원' text='32명' />
-                <Item title='사용객실(1인/2인/3인)' text='1/12/3' />
+                <Item title='숙소명' text={hotel} />
+                <Item title='숙박인원' text={roomList.count.total + ' 명'} />
+                <Item
+                    title='사용객실(1인/2인/3인)'
+                    text={`${roomList.count.single} / ${roomList.count.twin} / ${roomList.count.triple}`}
+                />
             </Box>
             <Box
                 sx={{

@@ -46,13 +46,17 @@ type Menu = {
     price: number;
 };
 
-export default function RestaurantReceiptModal() {
+export default function RestaurantReceiptModal({
+    restaurantName,
+    menuInfo,
+    total,
+}: any) {
     const [restaurants, setRestaurants] =
         useState<Restaurant[]>(restaurantList);
     const [menus, setMenus] = useState<Menu[]>(restaurantList[0].menus);
     const [restaurant, setRestaurant] = useState<Restaurant>(restaurantList[0]);
     const [menu, setMenu] = useState<Menu>(restaurant.menus[0]);
-    const [count, setCount] = useState<number>(1);
+    const [count, setCount] = useState<number>(total);
 
     useEffect(() => {
         setMenus(restaurant.menus);
@@ -64,15 +68,21 @@ export default function RestaurantReceiptModal() {
             <Title text='식당 영수증 등록' />
             <Box sx={{ mt: '1rem' }}>
                 <MenuSectionItemGrid>
-                    <MenuSectionSelection<Restaurant>
+                    {/* <MenuSectionSelection<Restaurant>
                         title='식당'
                         items={restaurants}
                         selected={restaurant}
                         displayKey='name'
                         onChange={setRestaurant}
                         key='_id'
+                    /> */}
+                    <MenuSectionItem title='식당' text={restaurantName} />
+                    <MenuSectionItem
+                        title='메뉴'
+                        text={menuInfo[0]}
+                        subText={menuInfo[1]}
                     />
-                    <MenuSectionSelection<Menu>
+                    {/* <MenuSectionSelection<Menu>
                         title='메뉴'
                         items={menus}
                         selected={menu}
@@ -80,7 +90,7 @@ export default function RestaurantReceiptModal() {
                         onChange={setMenu}
                         key='_id'
                         subText={menu ? menu.price.toLocaleString() + '원' : ''}
-                    />
+                    /> */}
                     <MenuSectionItemWithIncDec
                         title='식수인원'
                         value={count}
@@ -96,13 +106,13 @@ export default function RestaurantReceiptModal() {
                     <MenuSectionItem
                         title='총 결제금액'
                         text={
-                            menu
-                                ? (menu.price * count).toLocaleString() + '원'
+                            menuInfo
+                                ? (menuInfo[1] * count).toLocaleString() + '원'
                                 : ''
                         }
                         subText={
                             menu
-                                ? menu.price.toLocaleString() + ' x ' + count
+                                ? menuInfo[1].toLocaleString() + ' x ' + count
                                 : ''
                         }
                     />

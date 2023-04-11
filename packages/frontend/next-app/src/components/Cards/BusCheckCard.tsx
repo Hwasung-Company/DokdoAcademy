@@ -1,9 +1,17 @@
-import { Male } from '@mui/icons-material';
+import { Female, Male } from '@mui/icons-material';
 import { Box, Checkbox, Paper, Typography } from '@mui/material';
 
-export default function BusCheckCard() {
+export default function BusCheckCard({
+    name,
+    company,
+    sexuality,
+    contact,
+    onClick,
+    checked,
+}: any) {
     return (
         <Box
+            onClick={onClick}
             component={Paper}
             sx={{
                 height: '5rem',
@@ -14,6 +22,7 @@ export default function BusCheckCard() {
                 padding: '0 1rem',
                 alignItems: 'center',
                 justifyContent: 'space-between',
+                backgroundColor: checked ? 'success.main' : 'background.paper',
             }}
         >
             <Box
@@ -25,21 +34,25 @@ export default function BusCheckCard() {
                 }}
             >
                 <Box>
-                    <Typography variant='subtitle2'>서울교육지원청</Typography>
+                    <Typography variant='subtitle2'>{company}</Typography>
                 </Box>
                 <Box
                     sx={{
                         display: 'flex',
                     }}
                 >
-                    <Typography variant='h6'>황보재원</Typography>
-                    <Male fontSize='small' />
+                    <Typography variant='h6'>{name}</Typography>
+                    {sexuality === '남' ? (
+                        <Male fontSize='small' />
+                    ) : (
+                        <Female fontSize='small' />
+                    )}
                     <Typography variant='h6' ml='1rem'>
-                        010-1234-1234
+                        {contact}
                     </Typography>
                 </Box>
             </Box>
-            <Checkbox />
+            <Checkbox checked={checked} />
         </Box>
     );
 }

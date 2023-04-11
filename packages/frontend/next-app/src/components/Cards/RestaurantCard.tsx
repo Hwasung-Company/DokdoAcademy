@@ -9,11 +9,23 @@ const RestaurantReceiptModal = dynamic(
     { ssr: false },
 );
 
-export default function RestaurantCard() {
+export default function RestaurantCard({
+    restaurant,
+    day,
+    menu,
+    time,
+    count,
+}: any) {
     const { setModal, openModal, closeModal } = useModal();
 
     const handleModal = () => {
-        setModal(<RestaurantReceiptModal />);
+        setModal(
+            <RestaurantReceiptModal
+                restaurantName={restaurant}
+                menuInfo={menu}
+                total={count}
+            />,
+        );
         openModal();
     };
 
@@ -48,7 +60,7 @@ export default function RestaurantCard() {
                     }}
                 >
                     <Typography variant='caption'>일정</Typography>
-                    <Typography variant='h6'>1일차</Typography>
+                    <Typography variant='h6'>{day}</Typography>
                 </Box>
                 <Box
                     sx={{
@@ -59,8 +71,8 @@ export default function RestaurantCard() {
                 >
                     <Typography variant='caption'>식당</Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <Call fontSize='small' />
-                        <Typography variant='h6'>비목식당</Typography>
+                        {/* <Call fontSize='small' /> */}
+                        <Typography variant='h6'>{restaurant}</Typography>
                     </Box>
                 </Box>
                 <Box
@@ -71,7 +83,7 @@ export default function RestaurantCard() {
                     }}
                 >
                     <Typography variant='caption'>메뉴</Typography>
-                    <Typography variant='h6'>엉겅퀴 해장국</Typography>
+                    <Typography variant='h6'>{menu[0]}</Typography>
                 </Box>
                 <Box
                     sx={{
@@ -81,7 +93,7 @@ export default function RestaurantCard() {
                     }}
                 >
                     <Typography variant='caption'>일정</Typography>
-                    <Typography variant='h6'>조식</Typography>
+                    <Typography variant='h6'>{time}</Typography>
                 </Box>
                 <Box
                     sx={{
@@ -90,8 +102,8 @@ export default function RestaurantCard() {
                         gridColumn: 'span 1',
                     }}
                 >
-                    <Typography variant='caption'>예약시간</Typography>
-                    <Typography variant='h6'>오전 08:00</Typography>
+                    {/* <Typography variant='caption'>예약시간</Typography> */}
+                    {/* <Typography variant='h6'>오전 08:00</Typography> */}
                 </Box>
                 <Box
                     sx={{
@@ -101,7 +113,9 @@ export default function RestaurantCard() {
                     }}
                 >
                     <Typography variant='caption'>단가</Typography>
-                    <Typography variant='h6'>12,000원</Typography>
+                    <Typography variant='h6'>
+                        {menu[1].toLocaleString() + ' 원'}
+                    </Typography>
                 </Box>
             </Box>
             <Box>

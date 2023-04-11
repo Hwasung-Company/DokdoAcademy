@@ -5,8 +5,10 @@ import {
     Restaurant,
 } from '@mui/icons-material';
 import { alpha, Box, Paper, Typography } from '@mui/material';
+import { useTempContext } from 'next-app/src/context/TempContext';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const MenuTemplate = dynamic(() => import('../Layout/Menu/MenuTemplate'), {
     ssr: false,
@@ -18,10 +20,16 @@ const TourInformation = dynamic(() => import('./TourInformation'), {
 
 export default function Menu() {
     const router = useRouter();
+    const { selectBus, selectGroup } = useTempContext();
     const pushTo = (path: string) => () => {
         const { pathname } = router;
         router.push(pathname + '/menu' + path);
     };
+
+    useEffect(() => {
+        console.log(selectBus, selectGroup);
+    }, []);
+
     return (
         <MenuTemplate>
             <TourInformation />

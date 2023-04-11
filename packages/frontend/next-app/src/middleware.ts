@@ -4,7 +4,7 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
     const { pathname } = new URL(request.url);
 
-    console.log(request.headers.get('authorization'));
+    // console.log(request.headers.get('authorization'));
 
     if (pathname === '/admin') {
         // return NextResponse.redirect('/admin/login');

@@ -6,6 +6,7 @@ import { useModal } from 'next-app/src/context/ModalContext';
 import dynamic from 'next/dynamic';
 import MenuSection from '../../Layout/Menu/MenuSection';
 import TicketReceiptModal from '../../Modal/TicketReceiptModal';
+import { useTempContext } from 'next-app/src/context/TempContext';
 
 const MenuTemplate = dynamic(
     () => import('next-app/src/components/Manager/Layout/Menu/MenuTemplate'),
@@ -25,11 +26,20 @@ export default function TicketDetails() {
     const theme = useTheme();
 
     const { setModal, openModal, closeModal } = useModal();
+    const { selectGroup } = useTempContext();
 
-    const handleReceiptModal = () => {
-        setModal(<TicketReceiptModal />);
-        openModal();
-    };
+    const handleReceiptModal =
+        ({ name, price }: any) =>
+        () => {
+            setModal(
+                <TicketReceiptModal
+                    name={name}
+                    price={price}
+                    count={selectGroup.participants.length}
+                />,
+            );
+            openModal();
+        };
 
     return (
         <MenuTemplate>
@@ -53,7 +63,10 @@ export default function TicketDetails() {
                         }
                         text='모노레일'
                         color={theme.palette.primary.dark}
-                        onClick={handleReceiptModal}
+                        onClick={handleReceiptModal({
+                            name: '모노레일',
+                            price: 3000,
+                        })}
                     />
                     <Btn
                         icon={
@@ -68,7 +81,10 @@ export default function TicketDetails() {
                         }
                         text='케이블카'
                         color={theme.palette.primary.main}
-                        onClick={handleReceiptModal}
+                        onClick={handleReceiptModal({
+                            name: '케이블카',
+                            price: 6500,
+                        })}
                     />
                     <Btn
                         icon={
@@ -83,7 +99,10 @@ export default function TicketDetails() {
                         }
                         text='봉래폭포'
                         color={theme.palette.success.main}
-                        onClick={handleReceiptModal}
+                        onClick={handleReceiptModal({
+                            name: '봉래폭포',
+                            price: 1500,
+                        })}
                     />
                     <Btn
                         icon={
@@ -102,7 +121,10 @@ export default function TicketDetails() {
                         }
                         text='관음도'
                         color={theme.palette.info.main}
-                        onClick={handleReceiptModal}
+                        onClick={handleReceiptModal({
+                            name: '관음도',
+                            price: 3500,
+                        })}
                     />
                     <Btn
                         icon={
@@ -124,7 +146,10 @@ export default function TicketDetails() {
                         }
                         text='예림원'
                         color={theme.palette.warning.main}
-                        onClick={handleReceiptModal}
+                        onClick={handleReceiptModal({
+                            name: '예림원',
+                            price: 4000,
+                        })}
                     />
                     <Btn
                         text=''

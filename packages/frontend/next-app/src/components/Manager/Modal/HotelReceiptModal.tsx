@@ -10,23 +10,42 @@ import MenuSection, {
     MenuSectionItemWithIncDec,
     MenuSectionSelection,
 } from '../Layout/Menu/MenuSection';
+import { useModal } from 'next-app/src/context/ModalContext';
 
-export default function HotelReceiptModal() {
+export default function HotelReceiptModal({ roomList, hotel }: any) {
+    const { closeModal } = useModal();
     return (
         <MContainer>
             <Title text='숙박 영수증 등록' />
             <Box sx={{ mt: '1rem' }}>
                 <MenuSectionItemGrid title='숙박 현황'>
-                    <MenuSectionItem title='숙소명' text='이사부호텔' />
-                    <MenuSectionItem title='숙박인원' text='32명' />
+                    <MenuSectionItem title='숙소명' text={hotel} />
+                    <MenuSectionItem
+                        title='숙박인원'
+                        text={roomList.count.total + '명'}
+                    />
                     <MenuSectionItem
                         title='사용객실(1인/2인/3인)'
-                        text='1/12/3'
+                        text={`${roomList.count.single}/${roomList.count.twin}/${roomList.count.triple}`}
                     />
                     <MenuSectionItem
                         title='총 결제금액'
-                        text='590,000원'
-                        subText='0/420,000/170,000'
+                        text={
+                            (
+                                roomList.count.single * 70000 + // 1인실
+                                roomList.count.twin * 140000 + // 2인실
+                                roomList.count.triple * 170000
+                            ) // 3인실)
+                                .toLocaleString() + '원'
+                        }
+                        subText={`${(
+                            roomList.count.single * 70000
+                        ).toLocaleString()}/${(
+                            roomList.count.twin * 140000
+                        ).toLocaleString()}/${(
+                            roomList.count.triple * 170000
+                        ).toLocaleString()}
+                        `}
                     />
                 </MenuSectionItemGrid>
                 <MenuSectionItemGrid title='결제 영수증 등록'>
@@ -80,7 +99,9 @@ export default function HotelReceiptModal() {
                         mt: '1rem',
                     }}
                 >
-                    <Button variant='outlined'>취소</Button>
+                    <Button variant='outlined' onClick={closeModal}>
+                        취소
+                    </Button>
                     <Button variant='contained' sx={{ ml: '1rem' }}>
                         확인
                     </Button>
