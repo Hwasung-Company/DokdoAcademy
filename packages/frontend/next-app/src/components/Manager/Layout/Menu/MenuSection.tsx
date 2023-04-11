@@ -78,18 +78,18 @@ export function MenuSectionItemGrid({
                 position: 'relative',
                 gridTemplateColumns: 'repeat(2, 1fr)',
                 gap: '1rem',
-                // paddingTop: title ? '1.5rem' : '0',
+                paddingTop: title ? '1.5rem' : '0',
                 maxHeight: height ? height : 'default',
                 overflowY: height ? 'scroll' : 'auto',
                 width: '100%',
             }}
         >
-            {(title || button) && (
+            {title && (
                 <Box
                     sx={{
-                        // position: 'absolute',
-                        // top: '-2rem',
-                        // left: '0',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
                         display: 'flex',
                         width: '100%',
                         justifyContent: 'space-between',
