@@ -11,6 +11,7 @@ import CSVButton from '../../CSV/CSVButton';
 import FlexFull from '../../atoms/layout/FlexFull';
 import FlexRadius from '../../atoms/layout/FlexRadius';
 import ListTable from '../../atoms/layout/table/ListTable';
+import { participantCheck } from 'next-app/src/validator';
 
 export default function CreateParticipantsModal({
     tourId,
@@ -86,12 +87,13 @@ export default function CreateParticipantsModal({
             >
                 <CSVButton
                     dataParser={(data) => {
-                        console.log(data);
                         const participants: Participant[] = data.map(
                             (p: string[]) => {
+                                // participantCheck(p);
                                 return new Participant(p);
                             },
                         );
+                        console.log(participants);
                         setParticipants(participants);
                     }}
                 />

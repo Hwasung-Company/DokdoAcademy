@@ -1,8 +1,17 @@
-export default function validate<T>(input: T, required?: (keyof T)[], regex?: [keyof T, RegExp][]): (keyof T)[] {
+export default function validate<T>(
+    input: T,
+    required?: (keyof T)[],
+    regex?: [keyof T, RegExp][],
+): (keyof T)[] {
     const errors: (keyof T)[] = [];
     if (required) {
         for (const key of required) {
-            if(input[key] === undefined || input[key] === null || input[key] === "") errors.push(key);
+            if (
+                input[key] === undefined ||
+                input[key] === null ||
+                input[key] === ''
+            )
+                errors.push(key);
         }
     }
 
@@ -19,5 +28,12 @@ export default function validate<T>(input: T, required?: (keyof T)[], regex?: [k
 }
 
 export const toContact = (contact: string) => {
-    return `${contact.slice(0, 3)}-${contact.slice(3, 7)}-${contact.slice(7, 11)}`
-}
+    return `${contact.slice(0, 3)}-${contact.slice(3, 7)}-${contact.slice(
+        7,
+        11,
+    )}`;
+};
+
+export const participantCheck = (input: string[]) => {
+    console.log(input);
+};
